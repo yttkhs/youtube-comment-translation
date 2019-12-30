@@ -1,10 +1,10 @@
 <template>
   <header class="TheHeader">
     <h1 class="TheHeader__logo">YOUTUBE<br />COMMENT<br />TRANSLATION</h1>
-    <form @submit.prevent="sendYouTubeURL" class="TheHeader__form">
+    <form @submit.prevent="sendURL" class="TheHeader__form">
       <label>
         <input v-model="url" type="text" />
-        <button @click="sendYouTubeURL">FETCH</button>
+        <button type="submit">FETCH</button>
       </label>
     </form>
   </header>
@@ -19,7 +19,7 @@ export default {
     };
   },
   methods: {
-    sendYouTubeURL() {
+    sendURL() {
       if (this.url.length === 0) return;
       this.$nuxt.$emit("EVENT_SEND_URL", this.url);
     }

@@ -37,6 +37,15 @@ export default {
   box-sizing: border-box;
 }
 
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+}
+
 body {
   -webkit-text-size-adjust: none;
   background-color: var(--color-base);
