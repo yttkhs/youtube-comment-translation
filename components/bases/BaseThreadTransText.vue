@@ -32,7 +32,7 @@ export default {
               params: {
                 text: `${this.text}`,
                 source: "",
-                target: "ja"
+                target: "zh"
               }
             }
           )

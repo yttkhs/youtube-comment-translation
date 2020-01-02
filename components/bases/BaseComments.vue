@@ -1,43 +1,55 @@
 <template>
-  <div class="ReplyContents">
-    <BaseReplyThread
-      v-for="{ id, snippet, uid } in data"
+  <div v-if="data.length" class="Comments">
+    <BaseCommentThread
+      v-for="{ id, snippet, reply, uid } in data"
       :data="snippet"
+      :reply="reply"
       :id="id"
       :key="uid"
     />
-    <InfiniteLoading @infinite="fetchReplyData" />
+    <InfiniteLoading ref="InfiniteLoading" @infinite="fetchCmtsData" />
   </div>
 </template>
 
 <script>
 import InfiniteLoading from "vue-infinite-loading";
-import BaseReplyThread from "./BaseReplyThread";
+import BaseCommentThread from "./BaseCommentThread";
 
 const API_URL = "https://www.googleapis.com/youtube/v3";
 const API_KEY = process.env.API_KEY;
 
 export default {
-  name: "BaseReplyContents",
-  components: { BaseReplyThread, InfiniteLoading },
-  props: {
-    parentId: {
-      type: String,
-      default: ""
-    }
-  },
+  name: "BaseComments",
+  components: { BaseCommentThread, InfiniteLoading },
   data() {
     return {
       data: [],
-      nextToken: ""
+      nextToken: "",
+      url: ""
     };
   },
+  computed: {
+    videoId() {
+      const pattern = new RegExp("(\\?v=)(.*?)(&|$)");
+      return this.url.match(pattern)[2];
+    }
+  },
+  mounted() {
+    this.$nuxt.$on("EVENT_SEND_URL", url => {
+      this.url = url;
+      this.resetCmtsData();
+      this.fetchCmtsData();
+    });
+  },
+  beforeDestroy() {
+    this.$nuxt.$off("EVENT_SEND_URL");
+  },
   methods: {
-    async fetchReplyData($state) {
+    async fetchCmtsData($state) {
       const params = () => {
         const obj = {
           part: "snippet",
-          parentId: `${this.parentId}`,
+          videoId: `${this.videoId}`,
           maxResults: "10",
           key: `${API_KEY}`
         };
@@ -47,13 +59,14 @@ export default {
       };
 
       await this.$axios
-        .get(`${API_URL}/comments`, {
+        .get(`${API_URL}/commentThreads`, {
           params: params()
         })
         .then(res => {
           if (this.nextToken !== undefined) {
             const data = res.data.items.map((item, index) => {
-              const obj = item;
+              const obj = item.snippet.topLevelComment;
+              obj.reply = item.snippet.totalReplyCount;
               obj.uid = this.data.length + index;
               return obj;
             });
@@ -69,13 +82,20 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    resetCmtsData() {
+      if (this.$refs.InfiniteLoading) {
+        this.$refs.InfiniteLoading.stateChanger.reset();
+      }
+      this.nextToken = "";
+      this.data = [];
     }
   }
 };
 </script>
 
 <style scoped lang="scss">
-.ReplyContents {
-  margin-top: 20px;
+.Comments {
+  margin-top: 50px;
 }
 </style>
