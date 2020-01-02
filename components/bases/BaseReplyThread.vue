@@ -1,7 +1,7 @@
 <template>
   <section class="ReplyThread">
     <div class="ReplyThread__thumb">
-      <a :href="data.authorChannelUrl">
+      <a :href="data.authorChannelUrl" target="_blank" rel="noopener">
         <img :src="data.authorProfileImageUrl" :alt="data.authorDisplayName" />
       </a>
     </div>
@@ -12,12 +12,8 @@
         :time="data.publishedAt"
       />
       <div class="ReplyThread__contents">
-        <BaseThreadText :text="data.textDisplay">
-          <template v-slot:title>原文</template>
-        </BaseThreadText>
-        <BaseThreadText :text="data.textDisplay">
-          <template v-slot:title>翻訳</template>
-        </BaseThreadText>
+        <BaseThreadText :text="data.textDisplay" />
+        <BaseThreadTransText :text="data.textDisplay" />
       </div>
     </div>
   </section>
@@ -26,10 +22,11 @@
 <script>
 import BaseThreadHeader from "./BaseThreadHeader";
 import BaseThreadText from "./BaseThreadText";
+import BaseThreadTransText from "./BaseThreadTransText";
 
 export default {
   name: "BaseReplyThread",
-  components: { BaseThreadHeader, BaseThreadText },
+  components: { BaseThreadHeader, BaseThreadText, BaseThreadTransText },
   props: {
     data: {
       type: Object,

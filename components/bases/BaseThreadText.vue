@@ -1,6 +1,6 @@
 <template>
   <section class="ThreadText">
-    <h3 class="ThreadText__title"><slot name="title" /></h3>
+    <h3 class="ThreadText__title">原文</h3>
     <p v-html="text" class="ThreadText__cmt" />
   </section>
 </template>

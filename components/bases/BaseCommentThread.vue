@@ -1,7 +1,7 @@
 <template>
   <section class="CmtThread">
     <div class="CmtThread__thumb">
-      <a :href="data.authorChannelUrl">
+      <a :href="data.authorChannelUrl" target="_blank" rel="noopener">
         <img :src="data.authorProfileImageUrl" :alt="data.authorDisplayName" />
       </a>
     </div>
@@ -12,19 +12,16 @@
         :time="data.publishedAt"
       />
       <div class="CmtThread__contents">
-        <BaseThreadText :text="data.textDisplay">
-          <template v-slot:title>原文</template>
-        </BaseThreadText>
-        <BaseThreadText :text="data.textDisplay">
-          <template v-slot:title>翻訳</template>
-        </BaseThreadText>
+        <BaseThreadText :text="data.textDisplay" />
+        <BaseThreadTransText :text="data.textDisplay" />
       </div>
       <button
         v-if="reply"
         @click="displayReplyContents"
         class="CmtThread__button"
       >
-        {{ reply }}件の返信を表示
+        <template v-if="replyContents">返信を非表示</template>
+        <template v-else>{{ reply }}件の返信を表示</template>
       </button>
       <BaseReplyContents v-if="replyContents" :parentId="id" />
     </div>
@@ -33,12 +30,18 @@
 
 <script>
 import BaseThreadText from "./BaseThreadText";
+import BaseThreadTransText from "./BaseThreadTransText";
 import BaseThreadHeader from "./BaseThreadHeader";
 import BaseReplyContents from "./BaseReplyContents";
 
 export default {
   name: "BaseCommentThread",
-  components: { BaseReplyContents, BaseThreadHeader, BaseThreadText },
+  components: {
+    BaseReplyContents,
+    BaseThreadHeader,
+    BaseThreadText,
+    BaseThreadTransText
+  },
   props: {
     data: {
       type: Object,
@@ -55,7 +58,8 @@ export default {
   },
   data() {
     return {
-      replyContents: false
+      replyContents: false,
+      translatedText: ""
     };
   },
   methods: {

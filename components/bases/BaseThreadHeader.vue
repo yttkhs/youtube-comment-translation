@@ -1,6 +1,8 @@
 <template>
   <div class="ThreadHeader">
-    <a :href="url" class="ThreadHeader__name">{{ name }}</a>
+    <a :href="url" class="ThreadHeader__name" target="_blank" rel="noopener">
+      {{ name }}
+    </a>
     <time class="ThreadHeader__time">
       {{ $moment.utc(time).format("YYYY/MM/DD HH:mm:ss") }}
     </time>
