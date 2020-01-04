@@ -4,7 +4,7 @@
       {{ name }}
     </a>
     <time class="ThreadHeader__time">
-      {{ $moment.utc(time).format("YYYY/MM/DD HH:mm:ss") }}
+      {{ $moment.utc(time).format("YYYY/MM/DD HH:mm") }}
     </time>
   </div>
 </template>
