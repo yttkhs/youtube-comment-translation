@@ -19,6 +19,7 @@ export default {
   --color-text: #{$COLOR_BLACK};
   --color-gray: #606060;
   --color-blue: #065fd4;
+  --box-shadow: 0 0 10px 2px rgba(153, 153, 153, 0.4);
   font-size: 10px;
 
   @media (prefers-color-scheme: dark) {
@@ -27,6 +28,7 @@ export default {
     --color-text: #{$COLOR_WHITE};
     --color-gray: #888888;
     --color-blue: #3ea6ff;
+    --box-shadow: 0 0 10px 2px rgba(17, 17, 17, 0.4);
   }
 }
 
