@@ -73,10 +73,10 @@ export default {
 <style scoped lang="scss">
 .CmtThread {
   display: flex;
-
-  &:not(:first-child) {
-    margin-top: 40px;
-  }
+  padding: 20px 15px;
+  box-shadow: var(--box-shadow);
+  border-radius: 3px;
+  margin-top: 20px;
 
   &__thumb {
     width: 40px;
@@ -99,7 +99,7 @@ export default {
   }
 
   &__contents {
-    margin-top: 10px;
+    margin-top: 12px;
   }
 
   &__button {

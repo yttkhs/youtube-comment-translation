@@ -18,7 +18,7 @@ export default {
 main {
   max-width: $WIDTH_CONTENTS;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - #{$HEIGHT_HEADER});
   margin-top: $HEIGHT_HEADER;
   margin-left: auto;
   margin-right: auto;

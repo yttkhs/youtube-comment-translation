@@ -1,7 +1,7 @@
 <template>
   <div v-if="dataExists" class="Description">
     <div class="Description__thumb">
-      <a :href="url">
+      <a :href="url" target="_blank" rel="noopener">
         <img
           :src="data.snippet.thumbnails.high.url"
           :alt="data.snippet.title"
@@ -9,16 +9,33 @@
       </a>
     </div>
     <div class="Description__contents">
-      <a :href="url" class="Description__title">{{ data.snippet.title }}</a>
-      <div class="Description__info">
+      <a :href="url" class="Description__title" target="_blank" rel="noopener">
+        {{ data.snippet.title }}
+      </a>
+      <div class="Description__top">
         <time class="Description__time">
-          {{ $moment.utc(data.snippet.publishedAt).format("YYYY/MM/DD HH:mm") }}
+          <fa :icon="['fas', 'clock']" />{{
+            $moment.utc(data.snippet.publishedAt).format("YYYY/MM/DD HH:mm")
+          }}
         </time>
         <div class="Description__views">
-          {{ data.statistics.viewCount | toLocaleString }} Views
+          <fa :icon="['far', 'eye']" />{{
+            data.statistics.viewCount | toLocaleString
+          }}
+          Views
         </div>
       </div>
-      <div class="Description__comments">{{ data.snippet.description }}</div>
+      <div class="Description__bottom">
+        <a
+          :href="url"
+          class="Description__channel"
+          target="_blank"
+          rel="noopener"
+        >
+          {{ data.snippet.channelTitle }}
+        </a>
+        <div class="Description__comments">{{ data.snippet.description }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -87,8 +104,9 @@ export default {
 <style scoped lang="scss">
 .Description {
   display: flex;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--color-gray);
+  padding: 20px 15px;
+  box-shadow: var(--box-shadow);
+  border-radius: 3px;
 
   &__thumb {
     max-width: 200px;
@@ -113,7 +131,7 @@ export default {
     color: var(--color-text);
   }
 
-  &__info {
+  &__top {
     display: flex;
     margin-top: 10px;
   }
@@ -122,25 +140,44 @@ export default {
     color: var(--color-gray);
     font-size: 1.3rem;
     line-height: 1.8rem;
+
+    svg {
+      margin-right: 5px;
+    }
   }
 
   &__views {
     color: var(--color-gray);
     font-size: 1.3rem;
     line-height: 1.8rem;
-    margin-left: 10px;
+    margin-left: 15px;
+
+    svg {
+      margin-right: 5px;
+    }
+  }
+
+  &__bottom {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--color-gray);
+  }
+
+  &__channel {
+    color: var(--color-text);
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+    text-decoration: none;
   }
 
   &__comments {
-    color: var(--color-text);
+    margin-top: 5px;
+    color: var(--color-gray);
     font-size: 1.2rem;
     line-height: 1.6rem;
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid var(--color-gray);
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     overflow: hidden;
   }
 }
