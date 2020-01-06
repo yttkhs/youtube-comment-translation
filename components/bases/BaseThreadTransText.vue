@@ -1,7 +1,22 @@
 <template>
   <section class="ThreadTramsText">
-    <h3 class="ThreadTramsText__title">翻訳</h3>
-    <p v-html="translatedText" class="ThreadTramsText__cmt" />
+    <h3 class="ThreadTramsText__title">
+      <fa :icon="['fas', 'sync-alt']" />Translation
+    </h3>
+    <p
+      ref="text"
+      v-html="translatedText"
+      :class="{ 'close-text': openText }"
+      class="ThreadTramsText__cmt"
+    />
+    <button
+      v-if="longText"
+      @click="toggleLongText"
+      class="ThreadTramsText__cont"
+    >
+      <template v-if="openText">[ ... ]</template>
+      <template v-else>[ close ]</template>
+    </button>
   </section>
 </template>
 
@@ -16,8 +31,15 @@ export default {
   },
   data() {
     return {
-      translatedText: ""
+      translatedText: "",
+      longText: false,
+      openText: false
     };
+  },
+  watch: {
+    translatedText() {
+      this.judgeLongText();
+    }
   },
   mounted() {
     this.translateText();
@@ -43,6 +65,17 @@ export default {
             console.log(error);
           });
       }
+    },
+    judgeLongText() {
+      this.$nextTick(() => {
+        if (this.$refs.text.clientHeight >= 100) {
+          this.longText = true;
+          this.openText = true;
+        }
+      });
+    },
+    toggleLongText() {
+      this.openText = !this.openText;
     }
   }
 };
@@ -51,15 +84,21 @@ export default {
 <style scoped lang="scss">
 .ThreadTramsText {
   &:not(:first-of-type) {
-    border-top: 1px solid var(--color-gray);
-    padding-top: 10px;
-    margin-top: 10px;
+    border-top: 1px dashed var(--color-gray);
+    padding-top: 12px;
+    margin-top: 12px;
   }
 
   &__title {
-    font-size: 1.3rem;
-    line-height: 1.8rem;
+    display: flex;
+    align-items: baseline;
     color: var(--color-gray);
+    font-size: 1.3rem;
+    line-height: 1.8em;
+
+    svg {
+      margin-right: 5px;
+    }
   }
 
   &__cmt {
@@ -70,6 +109,22 @@ export default {
     /deep/ a {
       text-decoration: none;
       color: var(--color-blue);
+    }
+  }
+
+  .close-text {
+    max-height: 80px;
+    overflow: hidden;
+  }
+
+  &__cont {
+    margin-top: 10px;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    color: var(--color-gray);
+
+    &:hover {
+      opacity: 0.8;
     }
   }
 }
