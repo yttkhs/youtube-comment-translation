@@ -6,7 +6,9 @@
       :id="id"
       :key="uid"
     />
-    <InfiniteLoading @infinite="fetchReplyData" />
+    <InfiniteLoading @infinite="fetchReplyData" spinner="circles">
+      <span slot="no-more" />
+    </InfiniteLoading>
   </div>
 </template>
 

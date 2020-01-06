@@ -1,5 +1,6 @@
 <template>
-  <div v-if="data.length" class="Comments">
+  <section v-if="data.length" class="Comments">
+    <h2 class="Comments__title"><fa :icon="['fas', 'comment']" />Comments</h2>
     <BaseCommentThread
       v-for="{ id, snippet, reply, uid } in data"
       :data="snippet"
@@ -7,8 +8,14 @@
       :id="id"
       :key="uid"
     />
-    <InfiniteLoading ref="InfiniteLoading" @infinite="fetchCmtsData" />
-  </div>
+    <InfiniteLoading
+      ref="InfiniteLoading"
+      @infinite="fetchCmtsData"
+      spinner="circles"
+    >
+      <span slot="no-more" />
+    </InfiniteLoading>
+  </section>
 </template>
 
 <script>
@@ -97,5 +104,19 @@ export default {
 <style scoped lang="scss">
 .Comments {
   margin-top: 20px;
+
+  &__title {
+    font-size: 2rem;
+    line-height: 2.4rem;
+    color: var(--color-text);
+    display: flex;
+    letter-spacing: 0.05em;
+    align-items: center;
+    padding-left: 5px;
+
+    svg {
+      margin-right: 8px;
+    }
+  }
 }
 </style>
