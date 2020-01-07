@@ -1,18 +1,18 @@
 <template>
-  <section class="ThreadTramsText">
-    <h3 class="ThreadTramsText__title">
+  <section class="ThreadTransText">
+    <h3 class="ThreadTransText__title">
       <fa :icon="['fas', 'sync-alt']" />Translation
     </h3>
     <p
       ref="text"
       v-html="translatedText"
       :class="{ 'close-text': openText }"
-      class="ThreadTramsText__cmt"
+      class="ThreadTransText__cmt"
     />
     <button
       v-if="longText"
       @click="toggleLongText"
-      class="ThreadTramsText__cont"
+      class="ThreadTransText__cont"
     >
       <template v-if="openText">[ ... ]</template>
       <template v-else>[ close ]</template>
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.ThreadTramsText {
+.ThreadTransText {
   &:not(:first-of-type) {
     border-top: 1px dashed var(--color-gray);
     padding-top: 12px;

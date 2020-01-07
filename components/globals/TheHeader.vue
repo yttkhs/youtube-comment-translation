@@ -7,12 +7,15 @@
         <button type="submit"><fa :icon="['fas', 'search']" /></button>
       </label>
     </form>
+    <BaseHeaderNav />
   </header>
 </template>
 
 <script>
+import BaseHeaderNav from "../bases/BaseHeaderNav";
 export default {
   name: "TheHeader",
+  components: { BaseHeaderNav },
   data() {
     return {
       url: ""
@@ -49,14 +52,13 @@ export default {
 
   &__form {
     margin-left: auto;
-    margin-right: auto;
 
     label {
       display: flex;
     }
 
     input[type="text"] {
-      width: 250px;
+      width: 300px;
       border: 1px solid var(--color-gray);
       background-color: var(--color-base);
       color: var(--color-text);
@@ -65,7 +67,7 @@ export default {
       appearance: none;
       padding: 5px 10px;
       -webkit-font-smoothing: antialiased;
-      border-radius: 3px 0 0 3px;
+      border-radius: 2px 0 0 2px;
       outline: none;
 
       &:focus {
@@ -78,7 +80,7 @@ export default {
       width: 50px;
       color: var(--color-base);
       background-color: var(--color-gray);
-      border-radius: 0 3px 3px 0;
+      border-radius: 0 2px 2px 0;
       font-size: 14px;
     }
   }

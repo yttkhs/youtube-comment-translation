@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="Container">
     <BaseDescription />
     <BaseComments />
   </main>
@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-main {
+.Container {
   max-width: $WIDTH_CONTENTS;
   width: 100%;
   min-height: calc(100vh - #{$HEIGHT_HEADER});

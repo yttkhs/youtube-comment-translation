@@ -19,9 +19,7 @@
           }}
         </time>
         <div class="Description__views">
-          <fa :icon="['far', 'eye']" />{{
-            data.statistics.viewCount | toLocaleString
-          }}
+          <fa :icon="['far', 'eye']" />{{ viewCount | toLocaleString }}
           Views
         </div>
       </div>
@@ -55,6 +53,7 @@ export default {
     return {
       data: {},
       dataExists: 0,
+      viewCount: 0,
       url: ""
     };
   },
@@ -92,6 +91,7 @@ export default {
           this.data.snippet = res[0].data.items[0].snippet;
           this.data.statistics = res[1].data.items[0].statistics;
           this.dataExists = Object.keys(this.data).length;
+          this.viewCount = res[1].data.items[0].statistics.viewCount;
         })
         .catch(error => {
           console.log(error);
