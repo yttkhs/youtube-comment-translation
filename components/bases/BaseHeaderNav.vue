@@ -21,7 +21,7 @@ export default {
 <style scoped lang="scss">
 .HeaderNav {
   display: block;
-  margin-left: 20px;
+  margin-left: 10px;
 
   &__wrap {
     display: flex;
@@ -59,7 +59,7 @@ export default {
   }
 
   &__language {
-    margin-left: 20px;
+    margin-left: 10px;
     border: 1px solid var(--color-gray);
     border-radius: 2px;
 
