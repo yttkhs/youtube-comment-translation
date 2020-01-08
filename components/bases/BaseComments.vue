@@ -14,6 +14,7 @@
       spinner="circles"
     >
       <span slot="no-more" />
+      <span slot="no-results" />
     </InfiniteLoading>
   </section>
 </template>

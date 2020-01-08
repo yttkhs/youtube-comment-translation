@@ -8,6 +8,7 @@
     />
     <InfiniteLoading @infinite="fetchReplyData" spinner="circles">
       <span slot="no-more" />
+      <span slot="no-results" />
     </InfiniteLoading>
   </div>
 </template>
