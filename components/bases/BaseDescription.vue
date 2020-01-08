@@ -19,8 +19,8 @@
           }}
         </time>
         <div class="Description__views">
-          <fa :icon="['far', 'eye']" />{{ viewCount | toLocaleString }}
-          Views
+          <fa :icon="['far', 'eye']" />
+          {{ data.statistics.viewCount | toLocaleString }} Views
         </div>
       </div>
       <div class="Description__bottom">
@@ -44,16 +44,10 @@ const API_KEY = process.env.API_KEY;
 
 export default {
   name: "BaseDescription",
-  filters: {
-    toLocaleString(value) {
-      return value.toLocaleString();
-    }
-  },
   data() {
     return {
       data: {},
       dataExists: 0,
-      viewCount: 0,
       url: ""
     };
   },
@@ -91,7 +85,6 @@ export default {
           this.data.snippet = res[0].data.items[0].snippet;
           this.data.statistics = res[1].data.items[0].statistics;
           this.dataExists = Object.keys(this.data).length;
-          this.viewCount = res[1].data.items[0].statistics.viewCount;
         })
         .catch(error => {
           console.log(error);

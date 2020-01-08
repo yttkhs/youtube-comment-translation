@@ -30,7 +30,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: "~/plugins/infiniteLoading", ssr: false }],
+  plugins: [
+    { src: "~/plugins/infiniteLoading", ssr: false },
+    "~/plugins/filter.js"
+  ],
   /*
    ** Nuxt.js dev-modules
    */
