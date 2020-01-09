@@ -74,6 +74,7 @@ export default {
     margin-top: 5px;
     font-size: 1.4rem;
     line-height: 2rem;
+    word-break: break-all;
 
     /deep/ a {
       text-decoration: none;

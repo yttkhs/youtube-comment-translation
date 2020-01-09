@@ -60,8 +60,12 @@ export default {
   mounted() {
     this.$nuxt.$on("EVENT_SEND_URL", url => {
       this.url = url;
+      this.resetDescData();
       this.fetchDescData();
     });
+  },
+  beforeDestroy() {
+    this.$nuxt.$off("EVENT_SEND_URL");
   },
   methods: {
     async fetchDescData() {
@@ -89,6 +93,10 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    resetDescData() {
+      this.data = {};
+      this.dataExists = 0;
     }
   }
 };

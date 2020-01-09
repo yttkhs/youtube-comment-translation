@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: "BaseThreadText",
+  name: "BaseThreadTransText",
   props: {
     text: {
       type: String,
@@ -36,16 +36,24 @@ export default {
       openText: false
     };
   },
+  computed: {
+    langCode() {
+      return this.$store.state.language.langCode;
+    }
+  },
   watch: {
     translatedText() {
       this.judgeLongText();
+    },
+    langCode() {
+      this.translateText(this.langCode);
     }
   },
   mounted() {
-    this.translateText();
+    this.translateText(this.langCode);
   },
   methods: {
-    translateText() {
+    translateText(lang) {
       if (this.text.length) {
         this.$axios
           .get(
@@ -54,7 +62,7 @@ export default {
               params: {
                 text: `${this.text}`,
                 source: "",
-                target: "zh"
+                target: `${lang}`
               }
             }
           )
@@ -105,6 +113,7 @@ export default {
     margin-top: 5px;
     font-size: 1.4rem;
     line-height: 2rem;
+    word-break: break-all;
 
     /deep/ a {
       text-decoration: none;
