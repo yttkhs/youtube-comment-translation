@@ -1,5 +1,6 @@
 <template>
   <main class="Container">
+    <ModalTransLangList />
     <BaseDescription />
     <BaseComments />
   </main>
@@ -8,9 +9,10 @@
 <script>
 import BaseComments from "../components/bases/BaseComments";
 import BaseDescription from "../components/bases/BaseDescription";
+import ModalTransLangList from "../components/modals/ModalTransLangList";
 
 export default {
-  components: { BaseDescription, BaseComments }
+  components: { ModalTransLangList, BaseDescription, BaseComments }
 };
 </script>
 

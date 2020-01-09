@@ -6,7 +6,9 @@
         <button class="trans"><fa :icon="['fas', 'sync-alt']" /></button>
       </li>
       <li class="HeaderNav__language">
-        <button><fa :icon="['fas', 'language']" /></button>
+        <button @click="openLangList">
+          <fa :icon="['fas', 'language']" />
+        </button>
       </li>
     </ul>
   </nav>
@@ -14,7 +16,12 @@
 
 <script>
 export default {
-  name: "BaseHeaderNav"
+  name: "BaseHeaderNav",
+  methods: {
+    openLangList() {
+      this.$nuxt.$emit("EVENT_OPEN_LANG_LIST", true);
+    }
+  }
 };
 </script>
 
