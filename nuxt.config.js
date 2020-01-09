@@ -3,6 +3,7 @@ const { API_KEY } = process.env;
 
 export default {
   mode: "universal",
+  srcDir: "src/",
   /*
    ** Headers of the page
    */
