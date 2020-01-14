@@ -1,0 +1,39 @@
+@import "variable";
+
+:root {
+  --color-header: #{$COLOR_WHITE};
+  --color-base: #{$COLOR_LIGHT_GRAY};
+  --color-text: #{$COLOR_BLACK};
+  --color-gray: #606060;
+  --color-blue: #065fd4;
+  --box-shadow: 0 0 10px 2px rgba(153, 153, 153, 0.4);
+  font-size: 10px;
+  background-color: var(--color-base);
+  color: var(--color-text);
+  -webkit-text-size-adjust: none;
+
+  @media (prefers-color-scheme: dark) {
+    --color-header: #{$COLOR_DARK_GRAY};
+    --color-base: #{$COLOR_BLACK};
+    --color-text: #{$COLOR_WHITE};
+    --color-gray: #888888;
+    --color-blue: #3ea6ff;
+    --box-shadow: 0 0 10px 2px rgba(17, 17, 17, 0.4);
+  }
+}
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+}

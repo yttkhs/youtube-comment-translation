@@ -1,25 +1,21 @@
 <template>
-  <section class="CmtThread">
-    <div class="CmtThread__thumb">
+  <section>
+    <div>
       <a :href="data.authorChannelUrl" target="_blank" rel="noopener">
         <img :src="data.authorProfileImageUrl" :alt="data.authorDisplayName" />
       </a>
     </div>
-    <div class="CmtThread__container">
+    <div>
       <BaseThreadHeader
         :url="data.authorChannelUrl"
         :name="data.authorDisplayName"
         :time="data.publishedAt"
       />
-      <div class="CmtThread__contents">
+      <div>
         <BaseThreadText :text="data.textDisplay" />
         <BaseThreadTransText :text="data.textDisplay" />
       </div>
-      <button
-        v-if="reply"
-        @click="displayReplyContents"
-        class="CmtThread__button"
-      >
+      <button v-if="reply" @click="displayReplyContents">
         <template v-if="replyContents">返信を非表示</template>
         <template v-else>{{ reply }}件の返信を表示</template>
       </button>
@@ -69,46 +65,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-.CmtThread {
-  display: flex;
-  padding: 20px 15px;
-  box-shadow: var(--box-shadow);
-  border-radius: 3px;
-  margin-top: 20px;
-
-  &__thumb {
-    width: 40px;
-    margin-right: 15px;
-
-    a {
-      display: block;
-
-      img {
-        width: 100%;
-        height: auto;
-        border-radius: 50%;
-        vertical-align: middle;
-      }
-    }
-  }
-
-  &__container {
-    flex: 1;
-  }
-
-  &__contents {
-    margin-top: 12px;
-  }
-
-  &__button {
-    padding: 0;
-    margin-top: 15px;
-    background-color: transparent;
-    font-size: 1.4rem;
-    line-height: 2rem;
-    color: var(--color-blue);
-  }
-}
-</style>

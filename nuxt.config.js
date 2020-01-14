@@ -27,7 +27,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: ["normalize.css", "reset.css"],
+  css: ["normalize.css", "reset.css", "~/assets/scss/common.scss"],
   /*
    ** Plugins to load before mounting the App
    */
@@ -43,7 +43,8 @@ export default {
     "@nuxtjs/eslint-module",
     // Doc: https://github.com/nuxt-community/stylelint-module
     "@nuxtjs/stylelint-module",
-    ["@nuxtjs/moment"]
+    "@nuxtjs/moment",
+    "@nuxtjs/vuetify"
   ],
   moment: {
     locales: ["ja"]

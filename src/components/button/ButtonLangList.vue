@@ -1,5 +1,5 @@
 <template>
-  <button @click="changeTransLang" class="ButtonLang">{{ name }}</button>
+  <button @click="changeTransLang">{{ name }}</button>
 </template>
 
 <script>
@@ -23,14 +23,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-.ButtonLang {
-  width: 100%;
-  padding: 10px;
-  text-align: left;
-  font-size: 1.4rem;
-  line-height: 2rem;
-  color: var(--color-text);
-}
-</style>

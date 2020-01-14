@@ -1,9 +1,9 @@
 <template>
-  <div class="ThreadHeader">
-    <a :href="url" class="ThreadHeader__name" target="_blank" rel="noopener">
+  <div>
+    <a :href="url" target="_blank" rel="noopener">
       {{ name }}
     </a>
-    <time class="ThreadHeader__time">
+    <time>
       {{ $moment.utc(time).format("YYYY/MM/DD HH:mm") }}
     </time>
   </div>
@@ -28,23 +28,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-.ThreadHeader {
-  display: flex;
-
-  &__name {
-    color: var(--color-text);
-    text-decoration: none;
-    font-size: 1.3rem;
-    line-height: 1.8rem;
-  }
-
-  &__time {
-    margin-left: 10px;
-    font-size: 1.3rem;
-    line-height: 1.8rem;
-    color: var(--color-gray);
-  }
-}
-</style>

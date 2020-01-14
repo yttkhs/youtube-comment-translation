@@ -1,5 +1,5 @@
 <template>
-  <div class="ReplyContents">
+  <div>
     <BaseReplyThread
       v-for="{ id, snippet, uid } in data"
       :data="snippet"
@@ -76,9 +76,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-.ReplyContents {
-  margin-top: 20px;
-}
-</style>

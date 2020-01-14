@@ -1,17 +1,17 @@
 <template>
-  <section class="ReplyThread">
-    <div class="ReplyThread__thumb">
+  <section>
+    <div>
       <a :href="data.authorChannelUrl" target="_blank" rel="noopener">
         <img :src="data.authorProfileImageUrl" :alt="data.authorDisplayName" />
       </a>
     </div>
-    <div class="ReplyThread__container">
+    <div>
       <BaseThreadHeader
         :url="data.authorChannelUrl"
         :name="data.authorDisplayName"
         :time="data.publishedAt"
       />
-      <div class="ReplyThread__contents">
+      <div>
         <BaseThreadText :text="data.textDisplay" />
         <BaseThreadTransText :text="data.textDisplay" />
       </div>
@@ -39,46 +39,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-.ReplyThread {
-  display: flex;
-
-  &:not(:first-child) {
-    margin-top: 40px;
-  }
-
-  &__thumb {
-    width: 30px;
-    margin-right: 15px;
-
-    a {
-      display: block;
-
-      img {
-        width: 100%;
-        height: auto;
-        border-radius: 50%;
-        vertical-align: middle;
-      }
-    }
-  }
-
-  &__container {
-    flex: 1;
-  }
-
-  &__contents {
-    margin-top: 10px;
-  }
-
-  &__button {
-    padding: 0;
-    margin-top: 15px;
-    background-color: transparent;
-    font-size: 1.4rem;
-    line-height: 2rem;
-    color: var(--color-blue);
-  }
-}
-</style>

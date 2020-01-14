@@ -1,6 +1,6 @@
 <template>
-  <section v-if="data.length" class="Comments">
-    <h2 class="Comments__title"><fa :icon="['fas', 'comment']" />Comments</h2>
+  <section v-if="data.length">
+    <h2><fa :icon="['fas', 'comment']" />Comments</h2>
     <BaseCommentThread
       v-for="{ id, snippet, reply, uid } in data"
       :data="snippet"
@@ -101,23 +101,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-.Comments {
-  margin-top: 20px;
-
-  &__title {
-    font-size: 2rem;
-    line-height: 2.4rem;
-    color: var(--color-text);
-    display: flex;
-    letter-spacing: 0.05em;
-    align-items: center;
-    padding-left: 5px;
-
-    svg {
-      margin-right: 8px;
-    }
-  }
-}
-</style>

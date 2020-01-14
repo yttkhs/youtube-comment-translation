@@ -1,6 +1,6 @@
 <template>
-  <div v-if="dataExists" class="Description">
-    <div class="Description__thumb">
+  <div v-if="dataExists">
+    <div>
       <a :href="url" target="_blank" rel="noopener">
         <img
           :src="data.snippet.thumbnails.high.url"
@@ -8,31 +8,26 @@
         />
       </a>
     </div>
-    <div class="Description__contents">
-      <a :href="url" class="Description__title" target="_blank" rel="noopener">
+    <div>
+      <a :href="url" target="_blank" rel="noopener">
         {{ data.snippet.title }}
       </a>
-      <div class="Description__top">
-        <time class="Description__time">
+      <div>
+        <time>
           <fa :icon="['fas', 'clock']" />{{
             $moment.utc(data.snippet.publishedAt).format("YYYY/MM/DD HH:mm")
           }}
         </time>
-        <div class="Description__views">
+        <div>
           <fa :icon="['far', 'eye']" />
           {{ data.statistics.viewCount | toLocaleString }} Views
         </div>
       </div>
-      <div class="Description__bottom">
-        <a
-          :href="url"
-          class="Description__channel"
-          target="_blank"
-          rel="noopener"
-        >
+      <div>
+        <a :href="url" target="_blank" rel="noopener">
           {{ data.snippet.channelTitle }}
         </a>
-        <div class="Description__comments">{{ data.snippet.description }}</div>
+        <div>{{ data.snippet.description }}</div>
       </div>
     </div>
   </div>
@@ -101,85 +96,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-.Description {
-  display: flex;
-  padding: 20px 15px;
-  box-shadow: var(--box-shadow);
-  border-radius: 3px;
-
-  &__thumb {
-    max-width: 200px;
-    width: 100%;
-
-    img {
-      width: 100%;
-      height: auto;
-      vertical-align: middle;
-    }
-  }
-
-  &__contents {
-    flex: 1;
-    margin-left: 20px;
-  }
-
-  &__title {
-    font-size: 1.6rem;
-    line-height: 2.4rem;
-    text-decoration: none;
-    color: var(--color-text);
-  }
-
-  &__top {
-    display: flex;
-    margin-top: 10px;
-  }
-
-  &__time {
-    color: var(--color-gray);
-    font-size: 1.3rem;
-    line-height: 1.8rem;
-
-    svg {
-      margin-right: 5px;
-    }
-  }
-
-  &__views {
-    color: var(--color-gray);
-    font-size: 1.3rem;
-    line-height: 1.8rem;
-    margin-left: 15px;
-
-    svg {
-      margin-right: 5px;
-    }
-  }
-
-  &__bottom {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px dashed var(--color-gray);
-  }
-
-  &__channel {
-    color: var(--color-text);
-    font-size: 1.3rem;
-    line-height: 1.8rem;
-    text-decoration: none;
-  }
-
-  &__comments {
-    margin-top: 5px;
-    color: var(--color-gray);
-    font-size: 1.2rem;
-    line-height: 1.6rem;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-  }
-}
-</style>

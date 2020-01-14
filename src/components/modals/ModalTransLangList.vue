@@ -1,5 +1,5 @@
 <template>
-  <div @click.self="closeModal" v-show="open" class="LangList">
+  <div @click.self="closeModal" v-show="open">
     <ul>
       <li v-for="item in lang">
         <ButtonLangList :name="item.name" :code="item.code" :key="item.id" />
@@ -48,46 +48,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-.LangList {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-
-  ul {
-    position: absolute;
-    top: $HEIGHT_HEADER + 20px;
-    right: 20px;
-    width: 200px;
-    background-color: var(--color-header);
-    box-shadow: var(--box-shadow);
-    border-radius: 2px;
-    height: 300px;
-    overflow-y: scroll;
-
-    &::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: var(--color-header);
-      border-left: solid 1px var(--color-base);
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: var(--color-gray);
-      border-radius: 10px;
-      border: 1px solid var(--color-header);
-    }
-
-    li {
-      &:not(:first-of-type) {
-        border-top: 1px solid var(--color-base);
-      }
-    }
-  }
-}
-</style>
