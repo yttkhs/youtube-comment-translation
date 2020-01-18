@@ -1,21 +1,27 @@
 <template>
-  <header>
-    <h1>YOUTUBE<br />COMMENT<br />TRANSLATION</h1>
-    <form @submit.prevent="sendURL">
-      <label>
-        <input v-model="url" type="text" placeholder="Search..." />
-        <button type="submit"><fa :icon="['fas', 'search']" /></button>
-      </label>
+  <v-app-bar color="red" dark app clipped-left>
+    <v-app-bar-nav-icon @click.stop="$emit('openDrawerMenu')" />
+    <v-toolbar-title>LOGO</v-toolbar-title>
+
+    <v-spacer />
+    <form @submit.prevent="sendURL" class="form">
+      <v-text-field
+        v-model="url"
+        label="URL"
+        append-icon="mdi-magnify"
+        outlined
+        hide-details
+        dense
+        dark
+        color="#fff"
+      />
     </form>
-    <BaseHeaderNav />
-  </header>
+  </v-app-bar>
 </template>
 
 <script>
-import BaseHeaderNav from "../bases/BaseHeaderNav";
 export default {
   name: "TheHeader",
-  components: { BaseHeaderNav },
   data() {
     return {
       url: ""
@@ -29,3 +35,11 @@ export default {
   }
 };
 </script>
+
+<style scoped lang="scss">
+.form {
+  display: block;
+  max-width: 350px;
+  width: 100%;
+}
+</style>

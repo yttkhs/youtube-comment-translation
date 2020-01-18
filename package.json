@@ -14,13 +14,13 @@
   },
   "dependencies": {
     "nuxt": "^2.0.0",
-    "vue": "latest"
+    "qs": "^6.9.1",
+    "vue": "latest",
+    "vuetify": "^2.2.4",
+    "vuex": "latest"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.26",
-    "@fortawesome/free-regular-svg-icons": "^5.12.0",
-    "@fortawesome/free-solid-svg-icons": "^5.12.0",
-    "@fortawesome/vue-fontawesome": "^0.1.9",
+    "@mdi/js": "^4.7.95",
     "@nuxtjs/axios": "^5.9.0",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/eslint-config": "^1.0.1",
@@ -38,7 +38,6 @@
     "moment": "^2.24.0",
     "node-sass": "^4.13.0",
     "normalize.css": "^8.0.1",
-    "nuxt-fontawesome": "^0.4.0",
     "prettier": "^1.16.4",
     "reset.css": "^2.0.2",
     "sass-loader": "^8.0.0",

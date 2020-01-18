@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h3><fa :icon="['fas', 'sync-alt']" />Translation</h3>
+    <h3>Translation</h3>
     <p ref="text" v-html="translatedText" :class="{ 'close-text': openText }" />
     <button v-if="longText" @click="toggleLongText">
       <template v-if="openText">[ ... ]</template>

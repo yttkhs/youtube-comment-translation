@@ -27,12 +27,13 @@ export default {
   /*
    ** Global CSS
    */
-  css: ["normalize.css", "reset.css", "~/assets/scss/common.scss"],
+  css: [],
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
     { src: "~/plugins/infiniteLoading", ssr: false },
+    { src: "~/plugins/vuetify.js", ssr: false },
     "~/plugins/filter.js"
   ],
   /*
@@ -52,25 +53,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [
-    "@nuxtjs/style-resources",
-    "@nuxtjs/axios",
-    "@nuxtjs/dotenv",
-    "nuxt-fontawesome"
-  ],
-  fontawesome: {
-    component: "fa",
-    imports: [
-      {
-        set: "@fortawesome/free-solid-svg-icons",
-        icons: ["fas"]
-      },
-      {
-        set: "@fortawesome/free-regular-svg-icons",
-        icons: ["far"]
-      }
-    ]
-  },
+  modules: ["@nuxtjs/style-resources", "@nuxtjs/axios", "@nuxtjs/dotenv"],
   styleResources: {
     scss: ["@/assets/scss/variable.scss"]
   },

@@ -2,13 +2,11 @@
   <nav>
     <ul>
       <li>
-        <button><fa :icon="['fas', 'file-alt']" /></button>
-        <button><fa :icon="['fas', 'sync-alt']" /></button>
+        <button>a</button>
+        <button>b</button>
       </li>
       <li>
-        <button @click="openLangList">
-          <fa :icon="['fas', 'language']" />
-        </button>
+        <button @click="openLangList">c</button>
       </li>
     </ul>
   </nav>

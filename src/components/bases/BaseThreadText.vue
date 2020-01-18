@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h3><fa :icon="['fas', 'file-alt']" />Original</h3>
+    <h3>Original</h3>
     <p ref="text" v-html="text" :class="{ 'close-text': openText }" />
     <button v-if="longText" @click="toggleLongText">
       <template v-if="openText">[ ... ]</template>
