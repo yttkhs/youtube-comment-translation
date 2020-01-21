@@ -1,7 +1,25 @@
 <template>
   <v-container>
-    <BaseDescription :videoThumb="data.details.videoThumb" />
-    <BaseComments />
+    <v-row>
+      <v-col :cols="7">
+        <BaseComments />
+      </v-col>
+      <v-col :cols="5">
+        <BaseDescription
+          :videoThumb="data.details.videoThumb"
+          :videoTitle="data.details.videoTitle"
+          :viewCount="data.details.viewCount"
+          :channelName="data.details.channelName"
+          :channelThumb="data.details.channelThumb"
+          :description="data.details.description"
+          :postTime="data.details.postTime"
+          :subscribe="data.details.subscribe"
+          :commentCount="data.details.commentCount"
+          :likeCount="data.details.likeCount"
+          :dislikeCount="data.details.dislikeCount"
+        />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -21,7 +39,6 @@ export default {
       comments: [],
       nextToken: ""
     },
-    api: [],
     url: ""
   }),
   computed: {
@@ -34,23 +51,25 @@ export default {
     this.$nuxt.$on("EVENT_SEND_URL", url => {
       this.url = url;
       this.resetData();
-      this.fetchDescData();
-      this.fetchChannelData();
-      this.fetchCmtsData();
+      this.fetchData();
     });
   },
   beforeDestroy() {
     this.$nuxt.$off("EVENT_SEND_URL");
   },
   methods: {
+    async fetchData() {
+      await this.fetchDescData();
+      await this.fetchCmtsData();
+    },
     /**
      * @property {Object} thumbnails
      * @property {Object} standard
      * @property {Object} statistics
      * @property {string} channelTitle
      */
-    async fetchDescData() {
-      await Promise.all([
+    fetchDescData() {
+      Promise.all([
         this.$axios.get(`${API_URL}/videos`, {
           params: {
             part: "snippet",
@@ -78,33 +97,43 @@ export default {
             postTime: res01.publishedAt,
             commentCount: res02.commentCount,
             dislikeCount: res02.dislikeCount,
-            favoriteCount: res02.favoriteCount,
             likeCount: res02.likeCount,
             viewCount: res02.viewCount
           };
 
           this.$set(this.data, "details", items);
+          this.fetchChannelData();
         })
         .catch(error => {
           console.log(error);
         });
     },
-    async fetchChannelData() {
-      await this.$axios
-        .get(`${API_URL}/channels`, {
+    /**
+     * @property {string} channelThumb
+     * @property {string} subscriberCount
+     */
+    fetchChannelData() {
+      Promise.all([
+        this.$axios.get(`${API_URL}/channels`, {
           params: {
             part: "snippet",
-            id: "UCnHn3SzWLLimBjA79vDNTgQ",
+            id: `${this.data.details.channelId}`,
+            key: `${API_KEY}`
+          }
+        }),
+        this.$axios.get(`${API_URL}/channels`, {
+          params: {
+            part: "statistics",
+            id: `${this.data.details.channelId}`,
             key: `${API_KEY}`
           }
         })
+      ])
         .then(res => {
-          this.api = res;
-          const items = res.data.items.map(item => {
-            return item.snippet.thumbnails.url;
-          });
-
-          this.$set(this.data.details, "channelThumb", items);
+          const url = res[0].data.items[0].snippet.thumbnails.default.url;
+          const subscribe = res[1].data.items[0].statistics.subscriberCount;
+          this.$set(this.data.details, "channelThumb", url);
+          this.$set(this.data.details, "subscribe", subscribe);
         })
         .catch(error => {
           console.log(error);
@@ -121,8 +150,8 @@ export default {
      * @property {string} textDisplay
      * @property {string} nextPageToken
      */
-    async fetchCmtsData($state) {
-      await this.$axios
+    fetchCmtsData($state) {
+      this.$axios
         .get(`${API_URL}/commentThreads`, {
           params: {
             part: "snippet",
