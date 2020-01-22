@@ -21,7 +21,7 @@
 
 <script>
 import BaseThreadHeader from "./BaseThreadHeader";
-import BaseThreadText from "./BaseThreadText";
+import BaseThreadText from "./BaseThreadOrigText";
 import BaseThreadTransText from "./BaseThreadTransText";
 
 export default {
