@@ -1,10 +1,10 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col :cols="7">
-        <BaseComments />
-      </v-col>
-      <v-col :cols="5">
+    <v-layout>
+      <v-flex md8 sm8>
+        <BaseComments :comments="data.comments" />
+      </v-flex>
+      <v-flex md4 sm4 class="pl-3">
         <BaseDescription
           :videoThumb="data.details.videoThumb"
           :videoTitle="data.details.videoTitle"
@@ -18,8 +18,8 @@
           :likeCount="data.details.likeCount"
           :dislikeCount="data.details.dislikeCount"
         />
-      </v-col>
-    </v-row>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
