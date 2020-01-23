@@ -2,7 +2,22 @@
   <v-container>
     <v-layout>
       <v-flex md8 sm8>
-        <BaseComments :comments="data.comments" />
+        <BaseCommentThread
+          v-for="comment in data.comments"
+          :key="comment.id"
+          :displayName="comment.displayName"
+          :thumbUrl="comment.thumbUrl"
+          :postTime="comment.postTime"
+          :commentText="comment.commentText"
+          :replyCount="comment.replyCount"
+          :commentId="comment.commentId"
+          class="CommentsThread"
+        />
+        <infinite-loading
+          ref="InfiniteLoading"
+          v-if="dataExist"
+          @infinite="fetchCmtsData"
+        />
       </v-flex>
       <v-flex md4 sm4 class="pl-3">
         <BaseDescription
@@ -25,14 +40,15 @@
 
 <script>
 import Qs from "qs";
-import BaseComments from "../components/bases/BaseComments";
+import InfiniteLoading from "vue-infinite-loading";
+import BaseCommentThread from "../components/bases/BaseCommentThread";
 import BaseDescription from "../components/bases/BaseDescription";
 
 const API_URL = "https://www.googleapis.com/youtube/v3";
 const API_KEY = process.env.API_KEY;
 
 export default {
-  components: { BaseDescription, BaseComments },
+  components: { BaseDescription, BaseCommentThread, InfiniteLoading },
   data: () => ({
     data: {
       details: {},
@@ -45,6 +61,9 @@ export default {
     videoId() {
       const pattern = new RegExp("(\\?v=)(.*?)(&|$)");
       return this.url.match(pattern)[2];
+    },
+    dataExist() {
+      return this.data.comments.length;
     }
   },
   mounted() {
@@ -170,10 +189,11 @@ export default {
           }
         })
         .then(res => {
+          const commentData = this.data.comments;
           const items = res.data.items.map((item, index) => {
             const A = item.snippet.topLevelComment.snippet;
             return {
-              id: index,
+              id: commentData.length + index,
               commentId: item.id,
               postTime: A.publishedAt,
               displayName: A.authorDisplayName,
@@ -184,8 +204,9 @@ export default {
               likeCount: A.likeCount
             };
           });
+          const newCommentsData = commentData.concat(items);
 
-          this.$set(this.data, "comments", items);
+          this.$set(this.data, "comments", newCommentsData);
           this.$set(this.data, "nextToken", res.data.nextPageToken);
 
           if (this.data.nextToken) {
@@ -199,9 +220,6 @@ export default {
         });
     },
     resetData() {
-      if (this.$refs.InfiniteLoading) {
-        this.$refs.InfiniteLoading.stateChanger.reset();
-      }
       this.data.nextToken = "";
       this.data.details = {};
       this.data.comments = [];
@@ -209,3 +227,11 @@ export default {
   }
 };
 </script>
+
+<style scoped lang="scss">
+.CommentsThread {
+  &:not(:first-of-type) {
+    margin-top: 10px;
+  }
+}
+</style>

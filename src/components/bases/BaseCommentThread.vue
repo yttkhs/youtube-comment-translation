@@ -13,7 +13,11 @@
     </v-list-item>
     <BaseThreadOrigText :commentText="commentText" />
     <BaseThreadTransText :commentText="commentText" />
-    <BaseReplyContents v-if="replyCount" :replyCount="replyCount" />
+    <BaseReplyContents
+      v-if="replyCount"
+      :commentId="commentId"
+      :replyCount="replyCount"
+    />
   </v-card>
 </template>
 
@@ -36,7 +40,7 @@ export default {
     },
     postTime: {
       type: String,
-      default: "0000/00/00"
+      default: "0000-00-00T00:00:00.000Z"
     },
     commentText: {
       type: String,
@@ -45,6 +49,10 @@ export default {
     replyCount: {
       type: Number,
       default: 0
+    },
+    commentId: {
+      type: String,
+      default: ""
     }
   }
 };
