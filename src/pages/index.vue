@@ -15,9 +15,12 @@
         />
         <infinite-loading
           ref="InfiniteLoading"
-          v-if="dataExist"
+          v-if="url.length"
           @infinite="fetchCmtsData"
-        />
+        >
+          <div slot="no-more" />
+          <div slot="no-results" />
+        </infinite-loading>
       </v-flex>
       <v-flex md4 sm4 class="pl-3">
         <BaseDescription
@@ -39,7 +42,6 @@
 </template>
 
 <script>
-import Qs from "qs";
 import InfiniteLoading from "vue-infinite-loading";
 import BaseCommentThread from "../components/bases/BaseCommentThread";
 import BaseDescription from "../components/bases/BaseDescription";
@@ -55,15 +57,13 @@ export default {
       comments: [],
       nextToken: ""
     },
+    api: [],
     url: ""
   }),
   computed: {
     videoId() {
       const pattern = new RegExp("(\\?v=)(.*?)(&|$)");
       return this.url.match(pattern)[2];
-    },
-    dataExist() {
-      return this.data.comments.length;
     }
   },
   mounted() {
@@ -79,7 +79,6 @@ export default {
   methods: {
     async fetchData() {
       await this.fetchDescData();
-      await this.fetchCmtsData();
     },
     /**
      * @property {Object} thumbnails
@@ -92,15 +91,15 @@ export default {
         this.$axios.get(`${API_URL}/videos`, {
           params: {
             part: "snippet",
-            id: `${this.videoId}`,
-            key: `${API_KEY}`
+            id: this.videoId,
+            key: API_KEY
           }
         }),
         this.$axios.get(`${API_URL}/videos`, {
           params: {
             part: "statistics",
-            id: `${this.videoId}`,
-            key: `${API_KEY}`
+            id: this.videoId,
+            key: API_KEY
           }
         })
       ])
@@ -136,15 +135,15 @@ export default {
         this.$axios.get(`${API_URL}/channels`, {
           params: {
             part: "snippet",
-            id: `${this.data.details.channelId}`,
-            key: `${API_KEY}`
+            id: this.data.details.channelId,
+            key: API_KEY
           }
         }),
         this.$axios.get(`${API_URL}/channels`, {
           params: {
             part: "statistics",
-            id: `${this.data.details.channelId}`,
-            key: `${API_KEY}`
+            id: this.data.details.channelId,
+            key: API_KEY
           }
         })
       ])
@@ -174,21 +173,14 @@ export default {
         .get(`${API_URL}/commentThreads`, {
           params: {
             part: "snippet",
-            videoId: `${this.videoId}`,
+            videoId: this.videoId,
             maxResults: "10",
-            key: `${API_KEY}`
-          },
-          paramsSerializer(params) {
-            return Qs.stringify(params, {
-              get pageToken() {
-                if (this.data.nextToken) {
-                  return `${this.data.nextToken}`;
-                }
-              }
-            });
+            key: API_KEY,
+            pageToken: this.data.nextToken
           }
         })
         .then(res => {
+          this.api = res;
           const commentData = this.data.comments;
           const items = res.data.items.map((item, index) => {
             const A = item.snippet.topLevelComment.snippet;
@@ -220,6 +212,9 @@ export default {
         });
     },
     resetData() {
+      if (this.$refs.InfiniteLoading) {
+        this.$refs.InfiniteLoading.stateChanger.reset();
+      }
       this.data.nextToken = "";
       this.data.details = {};
       this.data.comments = [];

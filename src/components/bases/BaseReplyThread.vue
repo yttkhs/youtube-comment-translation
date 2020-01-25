@@ -1,38 +1,46 @@
 <template>
-  <section>
-    <div>
-      <a :href="data.authorChannelUrl" target="_blank" rel="noopener">
-        <img :src="data.authorProfileImageUrl" :alt="data.authorDisplayName" />
-      </a>
-    </div>
-    <div>
-      <BaseThreadHeader
-        :url="data.authorChannelUrl"
-        :name="data.authorDisplayName"
-        :time="data.publishedAt"
-      />
-      <div>
-        <BaseThreadText :text="data.textDisplay" />
-        <BaseThreadTransText :text="data.textDisplay" />
-      </div>
-    </div>
-  </section>
+  <v-card outlined>
+    <v-list-item>
+      <v-list-item-avatar>
+        <v-img :src="thumbUrl" />
+      </v-list-item-avatar>
+      <v-list-item-content>
+        <v-list-item-title>{{ displayName }}</v-list-item-title>
+        <v-list-item-subtitle>
+          {{ $moment.utc(`${postTime}`).format("YYYY/MM/DD") }}
+        </v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+    <BaseThreadOrigText :commentText="commentText" />
+    <BaseThreadTransText :commentText="commentText" />
+  </v-card>
 </template>
 
 <script>
-import BaseThreadHeader from "./BaseThreadHeader";
-import BaseThreadText from "./BaseThreadOrigText";
+import BaseThreadOrigText from "./BaseThreadOrigText";
 import BaseThreadTransText from "./BaseThreadTransText";
 
 export default {
   name: "BaseReplyThread",
-  components: { BaseThreadHeader, BaseThreadText, BaseThreadTransText },
+  components: { BaseThreadTransText, BaseThreadOrigText },
   props: {
-    data: {
-      type: Object,
-      default: null
+    displayName: {
+      type: String,
+      default: "User Name"
     },
-    id: {
+    thumbUrl: {
+      type: String,
+      default: ""
+    },
+    postTime: {
+      type: String,
+      default: "0000-00-00T00:00:00.000Z"
+    },
+    commentText: {
+      type: String,
+      default: ""
+    },
+    commentId: {
       type: String,
       default: ""
     }

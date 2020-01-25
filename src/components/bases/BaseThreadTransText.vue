@@ -39,9 +39,9 @@ export default {
           "https://script.google.com/macros/s/AKfycbwdZFQgTfb8XwnHBeMrcYs7qL4tXF_jo743iRlUqX-RRpx0dVg/exec",
           {
             params: {
-              text: `${this.commentText}`,
+              text: this.commentText,
               source: "",
-              target: `${lang}`
+              target: lang
             }
           }
         )

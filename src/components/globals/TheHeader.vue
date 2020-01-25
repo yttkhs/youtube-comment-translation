@@ -4,7 +4,7 @@
     <v-toolbar-title>LOGO</v-toolbar-title>
 
     <v-spacer />
-    <form @submit.prevent="sendURL" class="form">
+    <form @submit.prevent="sendURL" class="form" autocomplete="off">
       <v-text-field
         v-model="url"
         label="URL"
