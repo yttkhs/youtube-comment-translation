@@ -34,7 +34,9 @@ export default {
   plugins: [
     { src: "~/plugins/infiniteLoading", ssr: false },
     { src: "~/plugins/vuetify.js", ssr: false },
-    "~/plugins/filter.js"
+    "~/plugins/filter.js",
+    "~/plugins/unEscapeText.js",
+    "~/plugins/deleteHtmlTags.js"
   ],
   /*
    ** Nuxt.js dev-modules
