@@ -6,12 +6,12 @@
           <v-icon class="mr-2">mdi-translate</v-icon>
           <v-fade-transition>
             <span v-if="open" class="font-weight-bold">TRANSLATION</span>
-            <span v-else>{{ translatedText }}</span>
+            <span v-else>{{ headingText }}</span>
           </v-fade-transition>
         </div>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <div v-html="translatedText" />
+        <div v-html="letterBody" />
       </v-expansion-panel-content>
     </v-expansion-panel>
   </v-expansion-panels>
@@ -27,7 +27,8 @@ export default {
     }
   },
   data: () => ({
-    translatedText: "Translated Comment..."
+    headingText: "Translated Comment...",
+    letterBody: "Translated Comment..."
   }),
   mounted() {
     this.translateText("ja");
@@ -39,14 +40,15 @@ export default {
           "https://script.google.com/macros/s/AKfycbwdZFQgTfb8XwnHBeMrcYs7qL4tXF_jo743iRlUqX-RRpx0dVg/exec",
           {
             params: {
-              text: this.commentText,
+              text: this.$unEscapeText(this.commentText),
               source: "",
               target: lang
             }
           }
         )
         .then(res => {
-          this.translatedText = res.data;
+          this.headingText = this.$deleteHtmlTags(res.data);
+          this.letterBody = res.data;
         })
         .catch(error => {
           console.log(error);

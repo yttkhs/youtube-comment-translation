@@ -57,7 +57,6 @@ export default {
       comments: [],
       nextToken: ""
     },
-    api: [],
     url: ""
   }),
   computed: {
@@ -180,7 +179,6 @@ export default {
           }
         })
         .then(res => {
-          this.api = res;
           const commentData = this.data.comments;
           const items = res.data.items.map((item, index) => {
             const A = item.snippet.topLevelComment.snippet;
