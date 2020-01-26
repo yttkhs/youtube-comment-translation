@@ -1,6 +1,8 @@
 <template>
   <v-app-bar color="red" dark app clipped-left>
-    <v-app-bar-nav-icon @click.stop="$emit('openDrawerMenu')" />
+    <v-app-bar-nav-icon @click.stop="$emit('openDrawerMenu')">
+      <v-icon>mdi-settings</v-icon>
+    </v-app-bar-nav-icon>
     <v-toolbar-title>LOGO</v-toolbar-title>
 
     <v-spacer />
