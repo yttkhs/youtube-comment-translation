@@ -1,6 +1,10 @@
 export const state = () => ({
-  langCode: "en"
+  langCode: "ja"
 });
+
+export const getters = {
+  langCode: state => state.langCode
+};
 
 export const mutations = {
   changeLang(state, lang) {

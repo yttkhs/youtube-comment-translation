@@ -17,8 +17,8 @@
             <v-list-item-title>並び替え</v-list-item-title>
           </v-list-item-content>
         </template>
-        <v-list-item-group v-model="sort" mandatory>
-          <v-list-item>
+        <v-list-item-group v-model="order" mandatory>
+          <v-list-item value="eval">
             <template v-slot:default="{ active }">
               <v-list-item-action>
                 <v-checkbox v-model="active" />
@@ -28,7 +28,7 @@
               </v-list-item-content>
             </template>
           </v-list-item>
-          <v-list-item>
+          <v-list-item value="new">
             <template v-slot:default="{ active }">
               <v-list-item-action>
                 <v-checkbox v-model="active" />
@@ -51,7 +51,7 @@
           </v-list-item-content>
         </template>
         <v-list-item-group v-model="language" mandatory>
-          <v-list-item v-for="val in langData" :key="val.id">
+          <v-list-item v-for="val in langData" :key="val.id" :value="val.lang">
             <template v-slot:default="{ active }">
               <v-list-item-action>
                 <v-checkbox v-model="active" />
@@ -74,7 +74,7 @@
           </v-list-item-content>
         </template>
         <v-list-item-group v-model="display" mandatory>
-          <v-list-item>
+          <v-list-item value="all">
             <template v-slot:default="{ active }">
               <v-list-item-action>
                 <v-checkbox v-model="active" />
@@ -84,7 +84,7 @@
               </v-list-item-content>
             </template>
           </v-list-item>
-          <v-list-item>
+          <v-list-item value="orig">
             <template v-slot:default="{ active }">
               <v-list-item-action>
                 <v-checkbox v-model="active" />
@@ -94,7 +94,7 @@
               </v-list-item-content>
             </template>
           </v-list-item>
-          <v-list-item>
+          <v-list-item value="trans">
             <template v-slot:default="{ active }">
               <v-list-item-action>
                 <v-checkbox v-model="active" />
@@ -113,6 +113,8 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
   name: "TheDrawerMenu",
   props: {
@@ -125,10 +127,45 @@ export default {
     langData: [
       { id: "0", lang: "ja", name: "日本語" },
       { id: "1", lang: "en", name: "英語" }
-    ],
-    sort: 0,
-    language: 0,
-    display: 0
-  })
+    ]
+  }),
+  computed: {
+    ...mapGetters({
+      langCode: "language/langCode",
+      isOrder: "order/isOrder",
+      isDisplay: "display/isDisplay"
+    }),
+    language: {
+      get() {
+        return this.langCode;
+      },
+      set(value) {
+        this.changeLang(value);
+      }
+    },
+    order: {
+      get() {
+        return this.isOrder;
+      },
+      set(value) {
+        this.changeOrder(value);
+      }
+    },
+    display: {
+      get() {
+        return this.isDisplay;
+      },
+      set(value) {
+        this.changeDisplay(value);
+      }
+    }
+  },
+  methods: {
+    ...mapMutations({
+      changeLang: "language/changeLang",
+      changeOrder: "order/changeOrder",
+      changeDisplay: "display/changeDisplay"
+    })
+  }
 };
 </script>
