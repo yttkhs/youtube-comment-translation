@@ -1,13 +1,13 @@
 export const state = () => ({
-  isOrder: "eval"
+  isOrder: "relevance"
 });
 
 export const getters = {
-  isOrder: state => state.order
+  isOrder: state => state.isOrder
 };
 
 export const mutations = {
   changeOrder(state, order) {
-    state.order = order;
+    state.isOrder = order;
   }
 };

@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "BaseThreadTransText",
   props: {
@@ -30,8 +32,13 @@ export default {
     headingText: "Translated Comment...",
     letterBody: "Translated Comment..."
   }),
+  computed: {
+    ...mapGetters({
+      langCode: "language/langCode"
+    })
+  },
   mounted() {
-    this.translateText("ja");
+    this.translateText(this.langCode);
   },
   methods: {
     async translateText(lang) {

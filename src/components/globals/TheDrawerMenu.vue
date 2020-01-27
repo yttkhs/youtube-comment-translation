@@ -18,23 +18,17 @@
           </v-list-item-content>
         </template>
         <v-list-item-group v-model="order" mandatory>
-          <v-list-item value="eval">
+          <v-list-item
+            v-for="item in orderData"
+            :value="item.value"
+            :key="item.id"
+          >
             <template v-slot:default="{ active }">
               <v-list-item-action>
                 <v-checkbox v-model="active" />
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>評価順</v-list-item-title>
-              </v-list-item-content>
-            </template>
-          </v-list-item>
-          <v-list-item value="new">
-            <template v-slot:default="{ active }">
-              <v-list-item-action>
-                <v-checkbox v-model="active" />
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>新しい順</v-list-item-title>
+                <v-list-item-title v-text="item.label" />
               </v-list-item-content>
             </template>
           </v-list-item>
@@ -51,13 +45,17 @@
           </v-list-item-content>
         </template>
         <v-list-item-group v-model="language" mandatory>
-          <v-list-item v-for="val in langData" :key="val.id" :value="val.lang">
+          <v-list-item
+            v-for="item in langData"
+            :key="item.id"
+            :value="item.value"
+          >
             <template v-slot:default="{ active }">
               <v-list-item-action>
                 <v-checkbox v-model="active" />
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>{{ val.name }}</v-list-item-title>
+                <v-list-item-title v-text="item.label" />
               </v-list-item-content>
             </template>
           </v-list-item>
@@ -67,40 +65,24 @@
       <v-divider />
 
       <!-- 表示切り替え -->
-      <v-list-group prepend-icon="mdi-dip-switch" value="true">
+      <v-list-group prepend-icon="mdi-dip-switch">
         <template v-slot:activator>
           <v-list-item-content>
             <v-list-item-title>表示切り替え</v-list-item-title>
           </v-list-item-content>
         </template>
         <v-list-item-group v-model="display" mandatory>
-          <v-list-item value="all">
+          <v-list-item
+            v-for="item in displayData"
+            :key="item.id"
+            :value="item.value"
+          >
             <template v-slot:default="{ active }">
               <v-list-item-action>
                 <v-checkbox v-model="active" />
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>全て</v-list-item-title>
-              </v-list-item-content>
-            </template>
-          </v-list-item>
-          <v-list-item value="orig">
-            <template v-slot:default="{ active }">
-              <v-list-item-action>
-                <v-checkbox v-model="active" />
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>原文</v-list-item-title>
-              </v-list-item-content>
-            </template>
-          </v-list-item>
-          <v-list-item value="trans">
-            <template v-slot:default="{ active }">
-              <v-list-item-action>
-                <v-checkbox v-model="active" />
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>翻訳</v-list-item-title>
+                <v-list-item-title v-text="item.label" />
               </v-list-item-content>
             </template>
           </v-list-item>
@@ -125,8 +107,22 @@ export default {
   },
   data: () => ({
     langData: [
-      { id: "0", lang: "ja", name: "日本語" },
-      { id: "1", lang: "en", name: "英語" }
+      { id: 0, value: "ja", label: "日本語" },
+      { id: 1, value: "en", label: "英語" },
+      { id: 2, value: "zh", label: "中国語" },
+      { id: 3, value: "ko", label: "韓国語" },
+      { id: 4, value: "fr", label: "フランス語" },
+      { id: 5, value: "de", label: "ドイツ語" },
+      { id: 6, value: "es", label: "スペイン語" }
+    ],
+    orderData: [
+      { id: 0, value: "relevance", label: "評価順" },
+      { id: 1, value: "time", label: "新しい順" }
+    ],
+    displayData: [
+      { id: 0, value: "all", label: "全て" },
+      { id: 1, value: "orig", label: "原文" },
+      { id: 2, value: "trans", label: "翻訳" }
     ]
   }),
   computed: {
