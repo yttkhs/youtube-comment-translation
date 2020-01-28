@@ -36,7 +36,9 @@ export default {
     { src: "~/plugins/vuetify.js", ssr: false },
     "~/plugins/filter.js",
     "~/plugins/unEscapeText.js",
-    "~/plugins/deleteHtmlTags.js"
+    "~/plugins/deleteHtmlTags.js",
+    "~/plugins/fetchStorage.js",
+    "~/plugins/saveStorage.js"
   ],
   /*
    ** Nuxt.js dev-modules
