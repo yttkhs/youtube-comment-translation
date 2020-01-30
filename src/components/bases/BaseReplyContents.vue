@@ -13,7 +13,7 @@
       </v-expansion-panel-header>
       <v-expansion-panel-content>
         <BaseReplyThread
-          v-for="comment in data.comments"
+          v-for="comment in comments"
           :key="comment.id"
           :displayName="comment.displayName"
           :thumbUrl="comment.thumbUrl"
@@ -56,10 +56,8 @@ export default {
     }
   },
   data: () => ({
-    data: {
-      comments: [],
-      nextToken: ""
-    }
+    comments: [],
+    nextToken: ""
   }),
   methods: {
     /**
@@ -81,11 +79,11 @@ export default {
             parentId: this.commentId,
             maxResults: "10",
             key: API_KEY,
-            pageToken: this.data.nextToken
+            pageToken: this.nextToken
           }
         })
         .then(res => {
-          const commentData = this.data.comments;
+          const commentData = this.comments;
           const items = res.data.items.map((item, index) => {
             const A = item.snippet;
             return {
@@ -99,12 +97,11 @@ export default {
               likeCount: A.likeCount
             };
           });
-          const newCommentsData = commentData.concat(items);
 
-          this.$set(this.data, "comments", newCommentsData);
-          this.$set(this.data, "nextToken", res.data.nextPageToken);
+          this.comments = commentData.concat(items);
+          this.nextToken = res.data.nextPageToken;
 
-          if (this.data.nextToken) {
+          if (this.nextToken) {
             $state.loaded();
           } else {
             $state.complete();
@@ -118,9 +115,8 @@ export default {
       if (this.$refs.InfiniteLoading) {
         this.$refs.InfiniteLoading.stateChanger.reset();
       }
-      this.data.nextToken = "";
-      this.data.details = {};
-      this.data.comments = [];
+      this.nextToken = "";
+      this.comments = [];
     }
   }
 };
