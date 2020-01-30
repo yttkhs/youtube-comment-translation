@@ -35,9 +35,8 @@
           :commentCount="details.commentCount"
           :likeCount="details.likeCount"
           :dislikeCount="details.dislikeCount"
-          class="sticky"
         />
-        <BaseSearchHistory />
+        <BaseSearchHistory :history="history" />
       </v-flex>
     </v-layout>
   </v-container>
@@ -258,7 +257,7 @@ export default {
         videoTitle: this.details.videoTitle,
         videoThumb: this.details.videoThumb,
         postTime: this.details.postTime,
-        commentCount: this.details.commentCount
+        viewCount: this.details.viewCount
       };
       const existSameHistory = historyData.some(item => {
         return item.url === this.url;
@@ -278,7 +277,10 @@ export default {
         newHistoryData.splice(newHistoryData.length - 1, 1);
       }
 
-      console.log(newHistoryData.length);
+      newHistoryData.map((item, index) => {
+        item.id = index;
+        return item;
+      });
 
       this.history = newHistoryData;
       this.$saveStorage(STORAGE_KEY, newHistoryData);
@@ -292,10 +294,5 @@ export default {
   &:not(:first-of-type) {
     margin-top: 10px;
   }
-}
-
-.sticky {
-  position: sticky;
-  top: 68px;
 }
 </style>
