@@ -10,18 +10,18 @@
 
       <v-divider />
 
-      <!-- 並び替え -->
-      <v-list-group prepend-icon="mdi-swap-vertical">
+      <!-- 言語 -->
+      <v-list-group prepend-icon="mdi-translate">
         <template v-slot:activator>
           <v-list-item-content>
-            <v-list-item-title>並び替え</v-list-item-title>
+            <v-list-item-title>言語</v-list-item-title>
           </v-list-item-content>
         </template>
-        <v-list-item-group v-model="order" mandatory>
+        <v-list-item-group v-model="language" mandatory>
           <v-list-item
-            v-for="item in orderData"
-            :value="item.value"
+            v-for="item in langData"
             :key="item.id"
+            :value="item.value"
           >
             <template v-slot:default="{ active }">
               <v-list-item-action>
@@ -37,18 +37,18 @@
 
       <v-divider />
 
-      <!-- 言語 -->
-      <v-list-group prepend-icon="mdi-translate">
+      <!-- 並び替え -->
+      <v-list-group prepend-icon="mdi-swap-vertical">
         <template v-slot:activator>
           <v-list-item-content>
-            <v-list-item-title>言語</v-list-item-title>
+            <v-list-item-title>並び替え</v-list-item-title>
           </v-list-item-content>
         </template>
-        <v-list-item-group v-model="language" mandatory>
+        <v-list-item-group v-model="order" mandatory>
           <v-list-item
-            v-for="item in langData"
-            :key="item.id"
+            v-for="item in orderData"
             :value="item.value"
+            :key="item.id"
           >
             <template v-slot:default="{ active }">
               <v-list-item-action>
