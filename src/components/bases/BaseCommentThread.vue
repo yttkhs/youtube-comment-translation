@@ -75,6 +75,9 @@ export default {
       this.displayText();
     }
   },
+  beforeMount() {
+    this.displayText();
+  },
   methods: {
     displayText() {
       switch (this.isDisplay) {
