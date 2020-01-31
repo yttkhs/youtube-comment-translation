@@ -9,7 +9,7 @@
     <form @submit.prevent="sendURL" class="form" autocomplete="off">
       <v-text-field
         v-model="url"
-        label="URL"
+        label="Paste YouTube URL"
         append-icon="mdi-magnify"
         outlined
         hide-details
@@ -31,8 +31,13 @@ export default {
   },
   methods: {
     sendURL() {
-      if (this.url.length === 0) return;
-      this.$nuxt.$emit("EVENT_SEND_URL", this.url);
+      const pattern = new RegExp("(\\?v=)(.*?)(&|$)");
+      const result = pattern.test(this.url);
+      if (result) {
+        this.$nuxt.$emit("EVENT_SEND_URL", this.url);
+      } else {
+        this.$nuxt.$emit("EVENT_URL_ERROR", true);
+      }
     }
   }
 };

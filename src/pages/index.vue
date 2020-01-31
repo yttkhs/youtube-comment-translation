@@ -1,29 +1,30 @@
 <template>
   <v-container>
+    <BaseUrlErrorDialog />
     <v-layout>
       <v-flex md8 sm8>
-        <BaseCommentThread
-          v-for="comment in comments"
-          :key="comment.id"
-          :displayName="comment.displayName"
-          :thumbUrl="comment.thumbUrl"
-          :postTime="comment.postTime"
-          :commentText="comment.commentText"
-          :replyCount="comment.replyCount"
-          :commentId="comment.commentId"
-          class="CommentsThread"
-        />
-        <infinite-loading
-          ref="InfiniteLoading"
-          v-if="url.length"
-          @infinite="fetchCmtsData"
-        >
-          <div slot="no-more" />
-          <div slot="no-results" />
-        </infinite-loading>
+        <TheExplanationScreen v-if="!url.length" />
+        <template v-if="url.length">
+          <BaseCommentThread
+            v-for="comment in comments"
+            :key="comment.id"
+            :displayName="comment.displayName"
+            :thumbUrl="comment.thumbUrl"
+            :postTime="comment.postTime"
+            :commentText="comment.commentText"
+            :replyCount="comment.replyCount"
+            :commentId="comment.commentId"
+            class="CommentsThread"
+          />
+          <infinite-loading ref="InfiniteLoading" @infinite="fetchCmtsData">
+            <div slot="no-more" />
+            <div slot="no-results" />
+          </infinite-loading>
+        </template>
       </v-flex>
       <v-flex md4 sm4 class="pl-3">
         <BaseDescription
+          v-if="url.length"
           :videoThumb="details.videoThumb"
           :videoTitle="details.videoTitle"
           :viewCount="details.viewCount"
@@ -48,6 +49,8 @@ import { mapGetters } from "vuex";
 import BaseCommentThread from "../components/bases/BaseCommentThread";
 import BaseDescription from "../components/bases/BaseDescription";
 import BaseSearchHistory from "../components/bases/BaseSearchHistory";
+import TheExplanationScreen from "../components/globals/TheExplanationScreen";
+import BaseUrlErrorDialog from "../components/bases/BaseUrlErrorDialog";
 
 const API_URL = "https://www.googleapis.com/youtube/v3";
 const API_KEY = process.env.API_KEY;
@@ -55,6 +58,8 @@ const STORAGE_KEY = "YOUTUBE_TRANS_COMMENT";
 
 export default {
   components: {
+    BaseUrlErrorDialog,
+    TheExplanationScreen,
     BaseSearchHistory,
     BaseDescription,
     BaseCommentThread,
@@ -65,6 +70,7 @@ export default {
     comments: [],
     nextToken: "",
     history: [],
+    error: false,
     url: ""
   }),
   computed: {
@@ -232,8 +238,8 @@ export default {
             $state.complete();
           }
         })
-        .catch(error => {
-          console.log(error);
+        .catch(() => {
+          $state.complete();
         });
     },
     resetData() {
