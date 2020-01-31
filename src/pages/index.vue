@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <BaseUrlErrorDialog />
+    <BaseFetchErrorDialog />
     <v-layout>
       <v-flex md8 sm8>
         <TheExplanationScreen v-if="!url.length" />
@@ -51,6 +52,7 @@ import BaseDescription from "../components/bases/BaseDescription";
 import BaseSearchHistory from "../components/bases/BaseSearchHistory";
 import TheExplanationScreen from "../components/globals/TheExplanationScreen";
 import BaseUrlErrorDialog from "../components/bases/BaseUrlErrorDialog";
+import BaseFetchErrorDialog from "../components/bases/BaseFetchErrorDialog";
 
 const API_URL = "https://www.googleapis.com/youtube/v3";
 const API_KEY = process.env.API_KEY;
@@ -58,6 +60,7 @@ const STORAGE_KEY = "YOUTUBE_TRANS_COMMENT";
 
 export default {
   components: {
+    BaseFetchErrorDialog,
     BaseUrlErrorDialog,
     TheExplanationScreen,
     BaseSearchHistory,
@@ -240,6 +243,7 @@ export default {
         })
         .catch(() => {
           $state.complete();
+          this.$nuxt.$emit("EVENT_FETCH_ERROR", true);
         });
     },
     resetData() {
