@@ -5,16 +5,17 @@
     <v-content>
       <nuxt />
     </v-content>
-    <v-footer />
+    <TheFooter />
   </v-app>
 </template>
 
 <script>
 import TheDrawerMenu from "../components/globals/TheDrawerMenu";
 import TheHeader from "../components/globals/TheHeader";
+import TheFooter from "../components/globals/TheFooter";
 
 export default {
-  components: { TheHeader, TheDrawerMenu },
+  components: { TheFooter, TheHeader, TheDrawerMenu },
   data: () => ({
     drawer: null
   }),
