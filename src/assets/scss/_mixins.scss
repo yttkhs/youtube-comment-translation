@@ -1,0 +1,40 @@
+@import "variables";
+
+/* ==================================================
+  Media Query
+================================================== */
+@mixin MQ($value) {
+  @if $value == "xs" {
+    @media screen and (max-width: $xs) {
+      @content;
+    }
+  }
+
+  @else if $value == "sm" {
+    @media screen and (min-width: $xs) and (max-width: $sm) {
+      @content;
+    }
+  }
+
+  @else if $value == "md" {
+    @media screen and (min-width: $sm) and (max-width: $md) {
+      @content;
+    }
+  }
+
+  @else if $value == "lg" {
+    @media screen and (min-width: $md) and (max-width: $lg) {
+      @content;
+    }
+  }
+
+  @else if $value == "xl" {
+    @media screen and (min-width: $lg) {
+      @content;
+    }
+  }
+
+  @else {
+    @warn "[error] $value is not defined";
+  }
+}

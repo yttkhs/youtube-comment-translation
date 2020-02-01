@@ -59,7 +59,7 @@ export default {
    */
   modules: ["@nuxtjs/style-resources", "@nuxtjs/axios", "@nuxtjs/dotenv"],
   styleResources: {
-    scss: ["@/assets/scss/variable.scss"]
+    scss: ["~/assets/scss/_mixins.scss", "~/assets/scss/_variables.scss"]
   },
   /*
    ** Build configuration
@@ -69,6 +69,9 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  server: {
+    host: "192.168.0.6"
   },
   env: {
     API_KEY
