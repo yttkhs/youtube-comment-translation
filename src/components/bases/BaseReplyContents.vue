@@ -11,7 +11,7 @@
           </v-fade-transition>
         </div>
       </v-expansion-panel-header>
-      <v-expansion-panel-content>
+      <v-expansion-panel-content class="ReplyContents">
         <BaseReplyThread
           v-for="comment in comments"
           :key="comment.id"
@@ -126,6 +126,14 @@ export default {
 .CommentsThread {
   &:not(:first-of-type) {
     margin-top: 10px;
+  }
+}
+</style>
+
+<style lang="scss">
+.ReplyContents {
+  > .v-expansion-panel-content__wrap {
+    padding: 0 10px 16px;
   }
 }
 </style>

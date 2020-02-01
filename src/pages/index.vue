@@ -2,30 +2,30 @@
   <v-container>
     <BaseUrlErrorDialog />
     <BaseFetchErrorDialog />
-    <v-layout>
-      <v-flex md8 sm8>
-        <TheExplanationScreen v-if="!url.length" />
-        <template v-if="url.length">
-          <BaseCommentThread
-            v-for="comment in comments"
-            :key="comment.id"
-            :displayName="comment.displayName"
-            :thumbUrl="comment.thumbUrl"
-            :postTime="comment.postTime"
-            :commentText="comment.commentText"
-            :replyCount="comment.replyCount"
-            :commentId="comment.commentId"
-            class="CommentsThread"
-          />
-          <infinite-loading ref="InfiniteLoading" @infinite="fetchCmtsData">
-            <div slot="no-more" />
-            <div slot="no-results" />
-          </infinite-loading>
-        </template>
+    <v-layout class="Container">
+      <v-flex v-if="!videoId.length" class="Explanation">
+        <TheExplanationScreen />
       </v-flex>
-      <v-flex md4 sm4 class="pl-3">
+      <v-flex v-else class="Comments">
+        <BaseCommentThread
+          v-for="comment in comments"
+          :key="comment.id"
+          :displayName="comment.displayName"
+          :thumbUrl="comment.thumbUrl"
+          :postTime="comment.postTime"
+          :commentText="comment.commentText"
+          :replyCount="comment.replyCount"
+          :commentId="comment.commentId"
+          class="CommentsThread"
+        />
+        <infinite-loading ref="InfiniteLoading" @infinite="fetchCmtsData">
+          <div slot="no-more" />
+          <div slot="no-results" />
+        </infinite-loading>
+      </v-flex>
+      <v-flex v-show="history.length" class="Sidebar">
         <BaseDescription
-          v-if="url.length"
+          v-if="videoId.length"
           :videoThumb="details.videoThumb"
           :videoTitle="details.videoTitle"
           :viewCount="details.viewCount"
@@ -74,18 +74,14 @@ export default {
     nextToken: "",
     history: [],
     error: false,
-    url: ""
+    videoId: ""
   }),
   computed: {
     ...mapGetters({
       langCode: "language/langCode",
       isOrder: "order/isOrder",
       isDisplay: "display/isDisplay"
-    }),
-    videoId() {
-      const pattern = new RegExp("(\\?v=)(.*?)(&|$)");
-      return this.url.match(pattern)[2];
-    }
+    })
   },
   watch: {
     details() {
@@ -101,8 +97,8 @@ export default {
     }
   },
   mounted() {
-    this.$nuxt.$on("EVENT_SEND_URL", url => {
-      this.url = url;
+    this.$nuxt.$on("EVENT_SEND_URL", videoId => {
+      this.videoId = videoId;
       this.fetchData();
     });
   },
@@ -263,14 +259,14 @@ export default {
       const historyData = this.history;
       const injectData = {
         id: 0,
-        url: this.url,
+        videoId: this.videoId,
         videoTitle: this.details.videoTitle,
         videoThumb: this.details.videoThumb,
         postTime: this.details.postTime,
         viewCount: this.details.viewCount
       };
       const existSameHistory = historyData.some(item => {
-        return item.url === this.url;
+        return item.videoId === this.videoId;
       });
 
       if (!existSameHistory) {
@@ -300,9 +296,45 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.Container {
+  @include MQ("xs") {
+    flex-wrap: wrap;
+  }
+}
+
 .CommentsThread {
   &:not(:first-of-type) {
     margin-top: 10px;
+  }
+}
+
+.Explanation {
+  order: 1;
+
+  @include MQ("xs") {
+    margin: 0 0 10px 0;
+  }
+}
+
+.Comments {
+  width: calc((100% / 12) * 8);
+  order: 2;
+
+  @include MQ("xs") {
+    margin: 10px 0 0 0;
+    order: 3;
+  }
+}
+
+.Sidebar {
+  width: calc(((100% / 12) * 4) - 10px);
+  margin: 0 0 0 10px;
+  order: 3;
+
+  @include MQ("xs") {
+    width: 100%;
+    margin: 0;
+    order: 2;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="Description">
     <v-list-item>
       <v-list-item-avatar>
         <v-img :src="channelThumb" />
@@ -30,12 +30,6 @@
         <v-icon>{{ show ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
       </v-btn>
     </v-card-text>
-    <v-expand-transition>
-      <div v-show="show">
-        <v-divider />
-        <v-card-text v-html="description" />
-      </div>
-    </v-expand-transition>
   </v-card>
 </template>
 
@@ -93,3 +87,9 @@ export default {
   })
 };
 </script>
+
+<style lang="scss" scoped>
+.Description {
+  margin-bottom: 10px;
+}
+</style>
