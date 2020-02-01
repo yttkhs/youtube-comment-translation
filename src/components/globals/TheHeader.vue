@@ -4,12 +4,15 @@
       <v-icon>mdi-settings</v-icon>
     </v-app-bar-nav-icon>
     <v-toolbar-title>LOGO</v-toolbar-title>
-
     <v-spacer />
-    <form @submit.prevent="sendURL" class="form" autocomplete="off">
+    <form
+      @submit.prevent="sendURL"
+      class="form d-none d-sm-block"
+      autocomplete="off"
+    >
       <v-text-field
         v-model="url"
-        label="Paste YouTube URL"
+        label="YouTube URL"
         append-icon="mdi-magnify"
         outlined
         hide-details
@@ -18,6 +21,9 @@
         color="#fff"
       />
     </form>
+    <v-btn icon fab color="white" class="d-block d-sm-none">
+      <v-icon>mdi-magnify</v-icon>
+    </v-btn>
   </v-app-bar>
 </template>
 
@@ -31,10 +37,11 @@ export default {
   },
   methods: {
     sendURL() {
-      const pattern = new RegExp("(\\?v=)(.*?)(&|$)");
+      const pattern = new RegExp("v=(\\w+)(&|$)");
       const result = pattern.test(this.url);
       if (result) {
-        this.$nuxt.$emit("EVENT_SEND_URL", this.url);
+        const videoId = this.url.match(pattern)[1];
+        this.$nuxt.$emit("EVENT_SEND_URL", videoId);
       } else {
         this.$nuxt.$emit("EVENT_URL_ERROR", true);
       }
