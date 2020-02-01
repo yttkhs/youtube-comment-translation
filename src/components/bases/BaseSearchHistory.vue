@@ -1,16 +1,17 @@
 <template>
   <div class="SearchHistory">
     <v-card
-      @click="sendURL(item.url)"
+      @click="sendURL(item.videoId)"
       v-for="item in history"
       :key="item.id"
       class="SearchHistoryItem"
+      style="overflow: hidden"
     >
       <v-layout>
-        <v-flex md4 sm4>
+        <v-flex xs4 class="SearchHistoryItem__thumb">
           <v-img :src="item.videoThumb" />
         </v-flex>
-        <v-flex class="pa-2 d-block text-truncate">
+        <v-flex xs8 class="pa-2 d-block text-truncate">
           <div class="body-2 d-block text-truncate">
             {{ item.videoTitle }}
           </div>
@@ -35,21 +36,23 @@ export default {
     }
   },
   methods: {
-    sendURL(url) {
-      this.$nuxt.$emit("EVENT_SEND_URL", url);
+    sendURL(videoId) {
+      this.$nuxt.$emit("EVENT_SEND_URL", videoId);
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.SearchHistory {
-  margin-top: 10px;
-}
-
 .SearchHistoryItem {
   &:not(:first-of-type) {
     margin-top: 10px;
+  }
+}
+
+.SearchHistoryItem {
+  &__thumb {
+    border-radius: 10px 0 0 10px;
   }
 }
 </style>
