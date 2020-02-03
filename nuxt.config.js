@@ -70,9 +70,6 @@ export default {
      */
     extend(config, ctx) {}
   },
-  server: {
-    host: "192.168.0.6"
-  },
   env: {
     API_KEY
   }
