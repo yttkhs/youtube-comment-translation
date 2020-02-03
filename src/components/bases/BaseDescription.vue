@@ -21,14 +21,13 @@
       }}
     </v-card-subtitle>
     <v-card-text class="d-flex align-center">
+      <v-icon small class="mr-2">mdi-comment</v-icon>
+      <span class="body-2">{{ commentCount | toLocaleString }}</span>
+      <v-spacer />
       <v-icon small class="mr-2">mdi-thumb-up</v-icon>
       <span class="mr-3 body-2">{{ likeCount | toLocaleString }}</span>
       <v-icon small class="mr-2">mdi-thumb-down</v-icon>
       <span class="body-2">{{ dislikeCount | toLocaleString }}</span>
-      <v-spacer />
-      <v-btn @click="show = !show" icon>
-        <v-icon>{{ show ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
-      </v-btn>
     </v-card-text>
   </v-card>
 </template>
