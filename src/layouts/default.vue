@@ -1,6 +1,7 @@
 <template>
-  <v-app color="black" dark>
+  <v-app color="black">
     <TheDrawerMenu :value="drawer" @input="drawer = $event" />
+    <TheSearchArea />
     <TheHeader @openDrawerMenu="openDrawerMenu" />
     <v-content>
       <nuxt />
@@ -13,9 +14,10 @@
 import TheDrawerMenu from "../components/globals/TheDrawerMenu";
 import TheHeader from "../components/globals/TheHeader";
 import TheFooter from "../components/globals/TheFooter";
+import TheSearchArea from "../components/globals/TheSearchArea";
 
 export default {
-  components: { TheFooter, TheHeader, TheDrawerMenu },
+  components: { TheSearchArea, TheFooter, TheHeader, TheDrawerMenu },
   data: () => ({
     drawer: null
   }),

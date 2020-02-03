@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="red" dark app clipped-left>
+  <v-app-bar color="red" app clipped-left>
     <v-app-bar-nav-icon @click.stop="$emit('openDrawerMenu')">
       <v-icon>mdi-settings</v-icon>
     </v-app-bar-nav-icon>
@@ -17,11 +17,16 @@
         outlined
         hide-details
         dense
-        dark
         color="#fff"
       />
     </form>
-    <v-btn icon fab color="white" class="d-block d-sm-none">
+    <v-btn
+      @click="openSearchArea"
+      icon
+      fab
+      color="white"
+      class="d-block d-sm-none"
+    >
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
   </v-app-bar>
@@ -45,6 +50,9 @@ export default {
       } else {
         this.$nuxt.$emit("EVENT_URL_ERROR", true);
       }
+    },
+    openSearchArea() {
+      this.$nuxt.$emit("EVENT_OPEN_SEARCH", true);
     }
   }
 };
