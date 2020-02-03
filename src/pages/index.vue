@@ -23,7 +23,7 @@
           <div slot="no-results" />
         </infinite-loading>
       </v-flex>
-      <v-flex v-show="history.length" class="Sidebar">
+      <v-flex v-show="isHistory.length" class="Sidebar">
         <BaseDescription
           v-if="videoId.length"
           :videoThumb="details.videoThumb"
@@ -38,7 +38,7 @@
           :likeCount="details.likeCount"
           :dislikeCount="details.dislikeCount"
         />
-        <BaseSearchHistory :history="history" />
+        <BaseSearchHistory class="form d-none d-sm-block" />
       </v-flex>
     </v-layout>
   </v-container>
@@ -46,7 +46,7 @@
 
 <script>
 import InfiniteLoading from "vue-infinite-loading";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import BaseCommentThread from "../components/bases/BaseCommentThread";
 import BaseDescription from "../components/bases/BaseDescription";
 import BaseSearchHistory from "../components/bases/BaseSearchHistory";
@@ -72,7 +72,6 @@ export default {
     details: {},
     comments: [],
     nextToken: "",
-    history: [],
     error: false,
     videoId: ""
   }),
@@ -80,7 +79,8 @@ export default {
     ...mapGetters({
       langCode: "language/langCode",
       isOrder: "order/isOrder",
-      isDisplay: "display/isDisplay"
+      isDisplay: "display/isDisplay",
+      isHistory: "history/isHistory"
     })
   },
   watch: {
@@ -109,6 +109,9 @@ export default {
     this.$nuxt.$off("EVENT_SEND_URL");
   },
   methods: {
+    ...mapMutations({
+      updateHistory: "history/updateHistory"
+    }),
     async fetchData() {
       await this.resetData();
       await this.fetchDescData();
@@ -252,11 +255,11 @@ export default {
     },
     fetchHistory() {
       const storageData = this.$fetchStorage(STORAGE_KEY);
-      this.history = Object.keys(storageData).length ? storageData : [];
+      this.updateHistory(Object.keys(storageData).length ? storageData : []);
     },
     registerHistory() {
       const newHistoryData = [];
-      const historyData = this.history;
+      const historyData = this.isHistory;
       const injectData = {
         id: 0,
         videoId: this.videoId,
@@ -288,7 +291,7 @@ export default {
         return item;
       });
 
-      this.history = newHistoryData;
+      this.updateHistory(newHistoryData);
       this.$saveStorage(STORAGE_KEY, newHistoryData);
     }
   }
@@ -321,7 +324,6 @@ export default {
   order: 2;
 
   @include MQ("xs") {
-    margin: 10px 0 0 0;
     order: 3;
   }
 }

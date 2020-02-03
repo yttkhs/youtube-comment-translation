@@ -2,7 +2,7 @@
   <div class="SearchHistory">
     <v-card
       @click="sendURL(item.videoId)"
-      v-for="item in history"
+      v-for="item in isHistory"
       :key="item.id"
       class="SearchHistoryItem"
       style="overflow: hidden"
@@ -27,13 +27,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "BaseSearchHistory",
-  props: {
-    history: {
-      type: Array,
-      default: Array
-    }
+  computed: {
+    ...mapGetters({
+      isHistory: "history/isHistory"
+    })
   },
   methods: {
     sendURL(videoId) {
@@ -48,9 +49,7 @@ export default {
   &:not(:first-of-type) {
     margin-top: 10px;
   }
-}
 
-.SearchHistoryItem {
   &__thumb {
     border-radius: 10px 0 0 10px;
   }
