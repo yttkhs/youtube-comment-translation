@@ -1,7 +1,9 @@
 <template>
   <v-footer>
     <v-spacer />
-    <div>&copy; {{ new Date().getFullYear() }} YouTube Comment Translation</div>
+    <div class="caption">
+      &copy; {{ new Date().getFullYear() }} YouTube Comment Translation
+    </div>
     <v-spacer />
   </v-footer>
 </template>
