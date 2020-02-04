@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { API_KEY, GAID } = process.env;
+const { API_KEY } = process.env;
 
 export default {
   mode: "universal",
@@ -68,6 +68,7 @@ export default {
    ** Nuxt.js dev-modules
    */
   buildModules: [
+    "@nuxtjs/google-analytics",
     // Doc: https://github.com/nuxt-community/eslint-module
     "@nuxtjs/eslint-module",
     // Doc: https://github.com/nuxt-community/stylelint-module
@@ -75,23 +76,16 @@ export default {
     "@nuxtjs/moment",
     "@nuxtjs/vuetify"
   ],
+  googleAnalytics: {
+    id: "UA-113810755-2"
+  },
   moment: {
     locales: ["ja"]
   },
   /*
    ** Nuxt.js modules
    */
-  modules: [
-    "@nuxtjs/style-resources",
-    "@nuxtjs/axios",
-    "@nuxtjs/dotenv",
-    [
-      "@nuxtjs/google-gtag",
-      {
-        id: GAID
-      }
-    ]
-  ],
+  modules: ["@nuxtjs/style-resources", "@nuxtjs/axios", "@nuxtjs/dotenv"],
   styleResources: {
     scss: ["~/assets/scss/_mixins.scss", "~/assets/scss/_variables.scss"]
   },
@@ -105,7 +99,6 @@ export default {
     extend(config, ctx) {}
   },
   env: {
-    API_KEY,
-    GAID
+    API_KEY
   }
 };

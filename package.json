@@ -13,7 +13,6 @@
     "format": "prettier --write src/**/*.vue src/**/**/*.vue"
   },
   "dependencies": {
-    "@nuxtjs/google-gtag": "^1.0.4",
     "nuxt": "^2.0.0",
     "qs": "^6.9.1",
     "vue": "latest",
@@ -26,6 +25,7 @@
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/eslint-config": "^1.0.1",
     "@nuxtjs/eslint-module": "^1.0.0",
+    "@nuxtjs/google-analytics": "^2.2.3",
     "@nuxtjs/moment": "^1.4.0",
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/stylelint-module": "^3.1.0",
