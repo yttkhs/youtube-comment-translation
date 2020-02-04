@@ -59,6 +59,12 @@ const API_KEY = process.env.API_KEY;
 const STORAGE_KEY = "YOUTUBE_TRANS_COMMENT";
 
 export default {
+  head() {
+    return {
+      titleTemplate: null,
+      title: "YouTube Comment Translation"
+    };
+  },
   components: {
     BaseFetchErrorDialog,
     BaseUrlErrorDialog,

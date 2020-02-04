@@ -8,14 +8,34 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || "",
+    title: "YouTube Comment Translation",
+    htmlAttrs: {
+      lang: "ja"
+    },
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       {
         hid: "description",
         name: "description",
-        content: process.env.npm_package_description || ""
+        content: "YouTubeのコメントを翻訳するWEBサイト"
+      },
+      {
+        hid: "og:site_name",
+        property: "og:site_name",
+        content: "YouTube Comment Translation"
+      },
+      { hid: "og:type", property: "og:type", content: "website" },
+      { hid: "og:url", property: "og:url", content: "https://example.com" },
+      {
+        hid: "og:title",
+        property: "og:title",
+        content: "YouTube Comment Translation"
+      },
+      {
+        hid: "og:description",
+        property: "og:description",
+        content: "YouTubeのコメントを翻訳するWEBサイト"
       }
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]

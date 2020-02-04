@@ -24,7 +24,7 @@
         </v-layout>
       </v-container>
       <v-divider />
-      <v-list dense>
+      <v-list>
         <v-list-item-group>
           <v-list-item
             @click="sendHistoryURL(item.videoId)"

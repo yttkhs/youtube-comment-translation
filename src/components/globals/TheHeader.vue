@@ -3,7 +3,13 @@
     <v-app-bar-nav-icon @click.stop="$emit('openDrawerMenu')">
       <v-icon>mdi-settings</v-icon>
     </v-app-bar-nav-icon>
-    <v-toolbar-title>LOGO</v-toolbar-title>
+    <div class="ml-1">
+      <img
+        class="logo"
+        src="../../static/logo.png"
+        alt="YouTube Comment Translation"
+      />
+    </div>
     <v-spacer />
     <form
       @submit.prevent="sendURL"
@@ -59,6 +65,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.logo {
+  width: auto;
+  height: 35px;
+  vertical-align: middle;
+}
+
 .form {
   display: block;
   max-width: 350px;
