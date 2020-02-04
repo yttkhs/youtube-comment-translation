@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { API_KEY } = process.env;
+const { API_KEY, GAID } = process.env;
 
 export default {
   mode: "universal",
@@ -26,7 +26,11 @@ export default {
         content: "YouTube Comment Translation"
       },
       { hid: "og:type", property: "og:type", content: "website" },
-      { hid: "og:url", property: "og:url", content: "https://example.com" },
+      {
+        hid: "og:url",
+        property: "og:url",
+        content: "https://youtube-comment-translation.netlify.com/"
+      },
       {
         hid: "og:title",
         property: "og:title",
@@ -77,7 +81,17 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ["@nuxtjs/style-resources", "@nuxtjs/axios", "@nuxtjs/dotenv"],
+  modules: [
+    "@nuxtjs/style-resources",
+    "@nuxtjs/axios",
+    "@nuxtjs/dotenv",
+    [
+      "@nuxtjs/google-gtag",
+      {
+        id: GAID
+      }
+    ]
+  ],
   styleResources: {
     scss: ["~/assets/scss/_mixins.scss", "~/assets/scss/_variables.scss"]
   },
@@ -91,6 +105,7 @@ export default {
     extend(config, ctx) {}
   },
   env: {
-    API_KEY
+    API_KEY,
+    GAID
   }
 };
