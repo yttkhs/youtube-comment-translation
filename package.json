@@ -30,6 +30,7 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/stylelint-module": "^3.1.0",
     "@nuxtjs/vuetify": "^1.10.0",
+    "axios": "latest",
     "babel-eslint": "^10.0.1",
     "dotenv": "latest",
     "eslint": "^6.1.0",
