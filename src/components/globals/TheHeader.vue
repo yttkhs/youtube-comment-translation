@@ -1,7 +1,7 @@
 <template>
   <v-app-bar color="red" app clipped-left>
     <v-app-bar-nav-icon @click.stop="$emit('openDrawerMenu')">
-      <v-icon>mdi-settings</v-icon>
+      <v-icon>mdi-cog-outline</v-icon>
     </v-app-bar-nav-icon>
     <div class="ml-1">
       <img
