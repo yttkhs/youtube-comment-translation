@@ -52,7 +52,7 @@ export default {
       const result = pattern.test(this.url);
 
       if (result) {
-        const videoId = this.url.match(pattern)[1];
+        const videoId = this.url.match(pattern)[0].replace("v=", "");
 
         this.$nuxt.$emit("EVENT_SEND_URL", videoId);
       } else {
