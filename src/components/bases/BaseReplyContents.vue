@@ -72,15 +72,21 @@ export default {
      * @property {string} nextPageToken
      */
     fetchCmtsData($state) {
+      const paramsObj = {
+        part: "snippet",
+        parentId: this.commentId,
+        maxResults: "10",
+        key: API_KEY,
+        pageToken: this.nextToken
+      };
+
+      if (this.nextToken) {
+        paramsObj.pageToken = this.nextToken;
+      }
+
       this.$axios
         .get(`${API_URL}/comments`, {
-          params: {
-            part: "snippet",
-            parentId: this.commentId,
-            maxResults: "10",
-            key: API_KEY,
-            pageToken: this.nextToken
-          }
+          params: paramsObj
         })
         .then(res => {
           const commentData = this.comments;

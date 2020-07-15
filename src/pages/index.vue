@@ -209,16 +209,21 @@ export default {
      * @property {string} nextPageToken
      */
     fetchCmtsData($state) {
+      const paramsObj = {
+        part: "snippet",
+        videoId: this.videoId,
+        order: this.isOrder,
+        maxResults: "10",
+        key: API_KEY
+      };
+
+      if (this.nextToken) {
+        paramsObj.pageToken = this.nextToken;
+      }
+
       this.$axios
         .get(`${API_URL}/commentThreads`, {
-          params: {
-            part: "snippet",
-            videoId: this.videoId,
-            order: this.isOrder,
-            maxResults: "10",
-            key: API_KEY,
-            pageToken: this.nextToken
-          }
+          params: paramsObj
         })
         .then(res => {
           const commentData = this.comments;
