@@ -3,9 +3,9 @@
     <TheDrawerMenu :value="drawer" @input="drawer = $event" />
     <TheSearchArea />
     <TheHeader @openDrawerMenu="openDrawerMenu" />
-    <v-content>
+    <v-main>
       <nuxt />
-    </v-content>
+    </v-main>
     <TheFooter />
   </v-app>
 </template>
