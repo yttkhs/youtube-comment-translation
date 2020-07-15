@@ -48,10 +48,12 @@ export default {
   },
   methods: {
     sendURL() {
-      const pattern = new RegExp("v=(\\w+)(&|$)");
+      const pattern = new RegExp("v=[0-9a-zA-Z\\-]{11}(&|$)");
       const result = pattern.test(this.url);
+
       if (result) {
         const videoId = this.url.match(pattern)[1];
+
         this.$nuxt.$emit("EVENT_SEND_URL", videoId);
       } else {
         this.$nuxt.$emit("EVENT_URL_ERROR", true);
