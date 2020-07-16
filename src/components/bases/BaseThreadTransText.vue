@@ -42,26 +42,16 @@ export default {
   },
   methods: {
     async translateText(lang) {
-      const params = new URLSearchParams({
-        text: this.$unEscapeText(this.commentText),
-        source: "",
-        target: lang
-      });
-
-      await fetch(
-        `https://script.google.com/macros/s/AKfycbwdZFQgTfb8XwnHBeMrcYs7qL4tXF_jo743iRlUqX-RRpx0dVg/exec?${params}`,
-        {
-          mode: "no-cors'",
-          method: "GET",
-          headers: {
-            "Content-Type": "text/plain; charset=utf-8"
-          }
+      await this.$axios("/api", {
+        params: {
+          text: this.$unEscapeText(this.commentText),
+          source: "",
+          target: lang
         }
-      )
+      })
         .then(res => {
-          console.log(res);
-          this.headingText = this.$deleteHtmlTags(res.body);
-          this.letterBody = res.body;
+          this.headingText = this.$deleteHtmlTags(res.data);
+          this.letterBody = res.data;
         })
         .catch(error => {
           console.log(error);

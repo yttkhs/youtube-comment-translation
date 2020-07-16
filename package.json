@@ -13,6 +13,7 @@
     "format": "prettier --write src/**/*.vue src/**/**/*.vue"
   },
   "dependencies": {
+    "@nuxtjs/proxy": "^2.0.1",
     "nuxt": "^2.0.0",
     "qs": "^6.9.1",
     "vue": "latest",
