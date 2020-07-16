@@ -42,20 +42,26 @@ export default {
   },
   methods: {
     async translateText(lang) {
-      await this.$axios
-        .get(
-          "https://script.google.com/macros/s/AKfycbwdZFQgTfb8XwnHBeMrcYs7qL4tXF_jo743iRlUqX-RRpx0dVg/exec",
-          {
-            params: {
-              text: this.$unEscapeText(this.commentText),
-              source: "",
-              target: lang
-            }
+      const params = new URLSearchParams({
+        text: this.$unEscapeText(this.commentText),
+        source: "",
+        target: lang
+      });
+
+      await fetch(
+        `https://script.google.com/macros/s/AKfycbwdZFQgTfb8XwnHBeMrcYs7qL4tXF_jo743iRlUqX-RRpx0dVg/exec?${params}`,
+        {
+          origin: "https://youtube-comment-translation.netlify.app/",
+          method: "GET",
+          headers: {
+            "Content-Type": "text/plain; charset=utf-8"
           }
-        )
+        }
+      )
         .then(res => {
-          this.headingText = this.$deleteHtmlTags(res.data);
-          this.letterBody = res.data;
+          console.log(res);
+          this.headingText = this.$deleteHtmlTags(res.body);
+          this.letterBody = res.body;
         })
         .catch(error => {
           console.log(error);
