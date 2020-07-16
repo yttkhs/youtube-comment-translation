@@ -51,7 +51,7 @@ export default {
       await fetch(
         `https://script.google.com/macros/s/AKfycbwdZFQgTfb8XwnHBeMrcYs7qL4tXF_jo743iRlUqX-RRpx0dVg/exec?${params}`,
         {
-          origin: "https://youtube-comment-translation.netlify.app/",
+          mode: "no-cors'",
           method: "GET",
           headers: {
             "Content-Type": "text/plain; charset=utf-8"
