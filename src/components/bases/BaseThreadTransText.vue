@@ -42,13 +42,16 @@ export default {
   },
   methods: {
     async translateText(lang) {
-      await this.$axios("/api", {
-        params: {
-          text: this.$unEscapeText(this.commentText),
-          source: "",
-          target: lang
+      await this.$axios(
+        "https://script.google.com/macros/s/AKfycbwdZFQgTfb8XwnHBeMrcYs7qL4tXF_jo743iRlUqX-RRpx0dVg/exec",
+        {
+          params: {
+            text: this.$unEscapeText(this.commentText),
+            source: "",
+            target: lang
+          }
         }
-      })
+      )
         .then(res => {
           this.headingText = this.$deleteHtmlTags(res.data);
           this.letterBody = res.data;

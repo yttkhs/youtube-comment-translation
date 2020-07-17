@@ -88,18 +88,6 @@ export default {
     "@nuxtjs/axios",
     "@nuxtjs/dotenv"
   ],
-  axios: {
-    proxy: true
-  },
-  proxy: {
-    "/api": {
-      target:
-        "https://script.google.com/macros/s/AKfycbwdZFQgTfb8XwnHBeMrcYs7qL4tXF_jo743iRlUqX-RRpx0dVg/exec",
-      pathRewrite: {
-        "^/api": ""
-      }
-    }
-  },
   styleResources: {
     scss: ["~/assets/scss/_mixins.scss", "~/assets/scss/_variables.scss"]
   },
