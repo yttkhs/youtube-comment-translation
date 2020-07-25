@@ -1,5 +1,9 @@
 🌐 [Youtube Comment Translation](https://youtube-comment-translation.herokuapp.com/)
 
-## ABOUT
-
+## About
 Youtubeのコメントを変換するWebアプリケーション
+
+## Technology Stack
+- Nuxt.js
+- Vuetify
+
